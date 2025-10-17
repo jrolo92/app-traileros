@@ -1,0 +1,16 @@
+<ion-card>
+  <img *ngIf="carrera.imagenUrl" [src]="carrera.imagenUrl" alt="{{ carrera.titulo }}" />
+
+  <ion-card-header>
+    <ion-card-title>{{ carrera.titulo }}</ion-card-title>
+    <ion-card-subtitle>{{ carrera.ubicacion }} - {{ carrera.fecha }}</ion-card-subtitle>
+  </ion-card-header>
+
+  <ion-card-content>
+    <p><strong>Dificultad:</strong> {{ carrera.dificultad }}</p>
+    <p><strong>Distancia:</strong> {{ carrera.distanciaKm }} km</p>
+    <p><strong>Desnivel:</strong> {{ carrera.desnivelPositivo }} m</p>
+    <p>{{ carrera.descripcion }}</p>
+  </ion-card-content>
+</ion-card>
+
