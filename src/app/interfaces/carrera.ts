@@ -11,6 +11,7 @@ export interface Carrera {
 }
 
 export enum Dificultad {
+  MuyAlta = "Muy Alta",
   Alta = "Alta",
   Media = "Intermedia",
   Moderada = "Moderada"

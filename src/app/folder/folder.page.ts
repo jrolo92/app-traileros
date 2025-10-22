@@ -4,13 +4,14 @@ import { Carrera, Dificultad } from '../interfaces/carrera';
 import { CarreraComponent } from '../components/carrera/carrera.component';
 import { FooterComponent } from '../components/footer/footer.component';
 import { IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle, IonContent } from '@ionic/angular/standalone';
+import { IonGrid, IonRow, IonCol, IonButton } from '@ionic/angular/standalone'; // componentes de la rejilla
 import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-folder',
   templateUrl: './folder.page.html',
   styleUrls: ['./folder.page.scss'],
-  imports: [ IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle, IonContent, CarreraComponent, CommonModule, FooterComponent],
+  imports: [IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle, IonContent, CarreraComponent, CommonModule, FooterComponent, IonGrid, IonRow, IonCol, IonButton],
 })
 export class FolderPage implements OnInit {
   public folder!: string;
@@ -44,7 +45,41 @@ export class FolderPage implements OnInit {
           distanciaKm: 29,
           desnivelPositivo: 1650,
           imagenUrl: 'assets/images/cxm-toleta.jpg'
+        },
+        {
+          id: 3,
+          titulo: 'Víboras Trail Algodonales',
+          dificultad: Dificultad.Alta,
+          descripcion: 'Carrera por montaña que atraviesa la Sierra de Líjar con salida en la Plaza de la Constitución. Ofrece modalidades de 42K, 21K y senderismo, con un recorrido exigente y vistas espectaculares.',
+          fecha: '2025-02-01',
+          ubicacion: 'Algodonales, Cádiz',
+          distanciaKm: 42,
+          desnivelPositivo: 4200,
+          imagenUrl: ''
+        },
+        {
+          id: 4,
+          titulo: '101 Km de Ronda',
+          dificultad: Dificultad.Alta,
+          descripcion: 'Mítica prueba organizada por La Legión que recorre 101 km por la Serranía de Ronda. Una experiencia única con miles de participantes y ambiente festivo.',
+          fecha: '2025-05-10',
+          ubicacion: 'Ronda, Málaga',
+          distanciaKm: 101,
+          desnivelPositivo: 2500,
+          imagenUrl: ''
+        },
+        {
+          id: 5,
+          titulo: 'Ultra Trail Sierra de los Bandoleros',
+          dificultad: Dificultad.MuyAlta,
+          descripcion: 'Recorrido épico por la Sierra de Grazalema, con tramos nocturnos, desniveles extremos y paisajes inolvidables. Modalidades de 82K y 166K.',
+          fecha: '2025-03-07',
+          ubicacion: 'Prado del Rey, Cádiz',
+          distanciaKm: 82,
+          desnivelPositivo: 4500,
+          imagenUrl: ''
         }
+
       ]
     }
   }
