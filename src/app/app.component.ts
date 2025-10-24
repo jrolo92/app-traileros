@@ -13,8 +13,7 @@ import {
   IonIcon,
   IonLabel,
   IonRouterOutlet,
-  IonRouterLink
-} from '@ionic/angular/standalone';
+  IonRouterLink, IonAvatar, IonImg, IonThumbnail } from '@ionic/angular/standalone';
 
 import { addIcons } from 'ionicons';
 import {
@@ -33,11 +32,11 @@ import {
   selector: 'app-root',
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss'],
-  imports: [
+  imports: [IonImg, IonAvatar, 
     RouterLink, RouterLinkActive,
     IonApp, IonSplitPane, IonMenu, IonContent,
     IonList, IonListHeader, IonNote, IonMenuToggle,
-    IonItem, IonIcon, IonLabel, IonRouterLink, IonRouterOutlet
+    IonItem, IonIcon, IonLabel, IonRouterLink, IonRouterOutlet, IonThumbnail
   ],
 })
 export class AppComponent {

@@ -22,6 +22,10 @@ export class FolderPage implements OnInit {
   ngOnInit() {
     this.folder = this.activatedRoute.snapshot.paramMap.get('id') as string;
 
+    if (this.folder === 'inicio') {
+      // Aquí ira el contenido del apartado Inicio 
+    }
+
     if (this.folder === 'carreras') {
       this.carreras = [
         {

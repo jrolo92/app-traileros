@@ -1,10 +1,12 @@
+<!-- Cada carrera va a tener este formato  -->
 <!-- Solo va a mostrar los datos de las carreras si la carrera está definida -->
 <ng-container *ngIf="carrera">
   <ion-card>
     <ion-row class="ion-align-items-center">
       <ion-col size="12" sizeMd="4">
         <!-- Data Binding [] e interpolación {{}}  -->
-        <ion-img [src]="carrera.imagenUrl" alt="{{ carrera.titulo }}" class="carrera-img"></ion-img>
+        <!-- Usamos la etiqueta ion-img para optimizar la carga de imágnees -->
+        <ion-img [src]="carrera.imagenUrl" alt="{{ carrera.titulo }}" class="carrera-img" width="600" height="800"></ion-img>
       </ion-col>
       <ion-col size="12" sizeMd="8">
 
