@@ -22,7 +22,7 @@
     </div> -->
 
   <!-- Esto es lo que se va a mostrar en el menú carreras -->
-  <ion-grid>
+  <!-- <ion-grid>
     <ng-container *ngIf="folder === 'carreras'">
       <ng-container *ngFor="let carrera of carreras; let i = index">
         <ion-row class="ion-justify-content-center" *ngIf="i % 2 === 0">
@@ -36,7 +36,28 @@
       </ng-container>
       <app-footer></app-footer>
     </ng-container>
-  </ion-grid>
+  </ion-grid> -->
+<ion-grid>
+  <ng-container *ngIf="folder === 'carreras'">
+    <ion-row class="ion-justify-content-center">
+      <ng-container *ngFor="let carrera of carreras; let i = index">
+        <ion-col size="12" size-md="6">
+          <ion-card color="primary">
+            <ion-card-header>
+              <ion-card-title>{{ carrera.titulo }}</ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+              <app-carrera [carrera]="carrera"></app-carrera>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+        <!-- Cierre de fila cada 2 elementos -->
+        <div class="w-100" *ngIf="(i + 1) % 2 === 0"></div>
+      </ng-container>
+    </ion-row>
+    <app-footer></app-footer>
+  </ng-container>
+</ion-grid>
 
 </ion-content>
 

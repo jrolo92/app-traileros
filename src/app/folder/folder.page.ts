@@ -3,15 +3,17 @@ import { ActivatedRoute } from '@angular/router';
 import { Carrera, Dificultad } from '../interfaces/carrera';
 import { CarreraComponent } from '../components/carrera/carrera.component';
 import { FooterComponent } from '../components/footer/footer.component';
-import { IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle, IonContent } from '@ionic/angular/standalone';
+import { IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent } from '@ionic/angular/standalone';
 import { IonGrid, IonRow, IonCol, IonButton } from '@ionic/angular/standalone'; // componentes de la rejilla
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-folder',
   templateUrl: './folder.page.html',
   styleUrls: ['./folder.page.scss'],
-  imports: [IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle, IonContent, CarreraComponent, CommonModule, FooterComponent, IonGrid, IonRow, IonCol, IonButton],
+  imports: [IonCardContent, IonCardTitle, IonCardHeader, IonCard, IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle, IonContent, CarreraComponent, 
+    CommonModule, FooterComponent, IonGrid, IonRow, IonCol, IonButton, FormsModule],
 })
 export class FolderPage implements OnInit {
   public folder!: string;
@@ -85,6 +87,33 @@ export class FolderPage implements OnInit {
         }
 
       ]
+    }
+  }
+
+  // Creamos una nueva clase para el formulario con los atributos: int ID, y todos los string (les damos valores iniciales):
+  public nuevaCarrera: Carrera = {
+    id: 0,
+    titulo: "",
+    dificultad: Dificultad.Moderada,
+    descripcion: "",
+    fecha: "",
+    ubicacion: "",
+    distanciaKm: 0,
+    desnivelPositivo: 0,
+    imagenUrl: ""
+  };
+
+
+  // // Creamos una función que guarde los datos del formulario en objetos de la clase
+  agregarCarrera(){
+    //Verificar que no se quedan los apartados vacios
+    if (this.nuevaCarrera.titulo.trim().length === 0 && 
+        this.nuevaCarrera.descripcion.trim().length === 0 &&
+        this.nuevaCarrera.fecha.trim().length === 0 &&
+        this.nuevaCarrera.ubicacion.trim().length === 0 &&
+        this.nuevaCarrera.distanciaKm !== 0 &&
+        ){
+      return;
     }
   }
 }
