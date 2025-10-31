@@ -26,3 +26,8 @@ ion-menu-button {
 #container a {
   text-decoration: none;
 }
+
+/* Cambia el color de la etiqueta flotante cuando el input está enfocado */
+ion-input.has-focus .label-text {
+  color: var(--ion-color-secondary); 
+}

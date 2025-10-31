@@ -3,29 +3,58 @@ import { ActivatedRoute } from '@angular/router';
 import { Carrera, Dificultad } from '../interfaces/carrera';
 import { CarreraComponent } from '../components/carrera/carrera.component';
 import { FooterComponent } from '../components/footer/footer.component';
-import { IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent } from '@ionic/angular/standalone';
-import { IonGrid, IonRow, IonCol, IonButton } from '@ionic/angular/standalone'; // componentes de la rejilla
+import { IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonList, IonItem, IonLabel, IonInput } from '@ionic/angular/standalone';
+import { IonGrid, IonRow, IonCol, IonButton, IonSelect, IonSelectOption } from '@ionic/angular/standalone'; // componentes de la rejilla y del select del formulario
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { ToastController, AlertController, ModalController } from '@ionic/angular/standalone';
+import { FormularioModalComponent } from '../components/formulario-modal/formulario-modal.component';
 
 @Component({
   selector: 'app-folder',
   templateUrl: './folder.page.html',
   styleUrls: ['./folder.page.scss'],
-  imports: [IonCardContent, IonCardTitle, IonCardHeader, IonCard, IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle, IonContent, CarreraComponent, 
-    CommonModule, FooterComponent, IonGrid, IonRow, IonCol, IonButton, FormsModule],
+  standalone: true,
+  imports: [IonInput, IonLabel, IonItem, IonList, IonCardContent, IonCardTitle, IonCardHeader, IonCard, IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle, IonContent, CarreraComponent, 
+    CommonModule, FooterComponent, IonGrid, IonRow, IonCol, IonButton, FormsModule, IonSelect, IonSelectOption],
 })
 export class FolderPage implements OnInit {
   public folder!: string;
   public carreras: Carrera[] = [];
   private activatedRoute = inject(ActivatedRoute);
-  constructor() { }
+
+    // Inyectamos los tres controladores en el constructor 
+  constructor(
+    private toastController: ToastController,
+    private alertController: AlertController,
+    private modalController: ModalController  // (de momento solo vamos a usar el modal para el formulario)
+  ) {}
+
+  // Función para abrir el modal
+  async abrirModalFormulario() {
+    const modal = await this.modalController.create({
+      component: FormularioModalComponent, // El componente que se mostrará dentro
+      // Podemos pasar datos al modal usando componentProps
+      componentProps: {
+        titulo: 'Detalles Adicionales',
+        descripcion: 'Esta información viene desde la página principal.'
+      }
+    });
+    await modal.present();
+
+    // Podemos esperar a que el modal se cierre y recibir datos de vuelta
+    const { data } = await modal.onDidDismiss();
+    if (data) {
+      console.log('Datos recibidos del modal:', data);
+    }
+  }
 
   ngOnInit() {
     this.folder = this.activatedRoute.snapshot.paramMap.get('id') as string;
 
     if (this.folder === 'inicio') {
-      // Aquí ira el contenido del apartado Inicio 
+      // Aquí ira el contenido del apartado Inicio
+
     }
 
     if (this.folder === 'carreras') {
@@ -87,33 +116,6 @@ export class FolderPage implements OnInit {
         }
 
       ]
-    }
-  }
-
-  // Creamos una nueva clase para el formulario con los atributos: int ID, y todos los string (les damos valores iniciales):
-  public nuevaCarrera: Carrera = {
-    id: 0,
-    titulo: "",
-    dificultad: Dificultad.Moderada,
-    descripcion: "",
-    fecha: "",
-    ubicacion: "",
-    distanciaKm: 0,
-    desnivelPositivo: 0,
-    imagenUrl: ""
-  };
-
-
-  // // Creamos una función que guarde los datos del formulario en objetos de la clase
-  agregarCarrera(){
-    //Verificar que no se quedan los apartados vacios
-    if (this.nuevaCarrera.titulo.trim().length === 0 && 
-        this.nuevaCarrera.descripcion.trim().length === 0 &&
-        this.nuevaCarrera.fecha.trim().length === 0 &&
-        this.nuevaCarrera.ubicacion.trim().length === 0 &&
-        this.nuevaCarrera.distanciaKm !== 0 &&
-        ){
-      return;
     }
   }
 }

@@ -15,28 +15,14 @@
     </ion-toolbar>
   </ion-header>
 
-  <!-- Esto es para el fondo de cada apartado -->
-    <!-- <div id="container">
-      <strong class="capitalize" >{{ folder }}</strong>
-      <p><a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components"></a></p>
-    </div> -->
+<!-- Formulario para añadir carreras  -->
+ <ng-container *ngIf="folder === 'inicio'">
+    <ion-button expand="block" (click)="abrirModalFormulario()" color="warning">
+      Añadir carrera
+    </ion-button>
+ </ng-container>
 
-  <!-- Esto es lo que se va a mostrar en el menú carreras -->
-  <!-- <ion-grid>
-    <ng-container *ngIf="folder === 'carreras'">
-      <ng-container *ngFor="let carrera of carreras; let i = index">
-        <ion-row class="ion-justify-content-center" *ngIf="i % 2 === 0">
-          <ion-col size="12" size-md="6" size-sm="4">
-            <app-carrera [carrera]="carreras[i]"></app-carrera>
-          </ion-col>
-          <ion-col size="12" size-md="6" size-sm="4" *ngIf="carreras[i + 1]">
-            <app-carrera [carrera]="carreras[i + 1]"></app-carrera>
-          </ion-col>
-        </ion-row>
-      </ng-container>
-      <app-footer></app-footer>
-    </ng-container>
-  </ion-grid> -->
+<!-- Lista de carreras -->
 <ion-grid>
   <ng-container *ngIf="folder === 'carreras'">
     <ion-row class="ion-justify-content-center">
