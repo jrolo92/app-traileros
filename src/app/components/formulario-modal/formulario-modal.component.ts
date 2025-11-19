@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { Carrera, Dificultad } from '../../interfaces/carrera';
 import { FormsModule } from '@angular/forms';
 import {
@@ -25,12 +25,16 @@ import { CarreraComponent } from '../carrera/carrera.component';
     IonLabel,
     IonSelect,
     IonSelectOption,
-    IonButton, CarreraComponent
+    IonButton, 
+    CarreraComponent
   ]
 })
 
 export class FormularioModalComponent  implements OnInit {
-   @Output() carreraCreada = new EventEmitter<Carrera>();
+  @Output() carreraCreada = new EventEmitter<Carrera>();
+
+  // 🔹 Declaramos el array de carreras
+  public carreras: Carrera[] = [];
 
   // Creamos una nueva clase para el formulario con los atributos: int ID, y todos los string (les damos valores iniciales):
   public nuevaCarrera: Carrera = {
@@ -62,13 +66,10 @@ export class FormularioModalComponent  implements OnInit {
     if (this.nuevaCarrera.ubicacion.trim().length === 0){
       return;
     }
-    if (this.nuevaCarrera.distanciaKm !== 0){
+    if (this.nuevaCarrera.distanciaKm <= 0){
       return;
     }
-    if (this.nuevaCarrera.distanciaKm !== 0){
-      return;
-    }
-    if (this.nuevaCarrera.desnivelPositivo !== 0){
+    if (this.nuevaCarrera.desnivelPositivo <= 0){
       return;
     }
     if (this.nuevaCarrera.imagenUrl?.trim().length === 0){

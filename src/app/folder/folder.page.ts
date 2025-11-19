@@ -16,7 +16,7 @@ import { FormularioModalComponent } from '../components/formulario-modal/formula
   styleUrls: ['./folder.page.scss'],
   standalone: true,
   imports: [IonInput, IonLabel, IonItem, IonList, IonCardContent, IonCardTitle, IonCardHeader, IonCard, IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle, IonContent, CarreraComponent, 
-    CommonModule, FooterComponent, IonGrid, IonRow, IonCol, IonButton, FormsModule, IonSelect, IonSelectOption],
+    CommonModule, FooterComponent, IonGrid, IonRow, IonCol, IonButton, FormsModule, IonSelect, IonSelectOption, FormularioModalComponent],
 })
 export class FolderPage implements OnInit {
   public folder!: string;
@@ -117,5 +117,10 @@ export class FolderPage implements OnInit {
 
       ]
     }
+  }
+
+  onCarreraCreada(carrera: Carrera) {
+    // Añade la nueva carrera al principio del listado
+    this.carreras.unshift(carrera);
   }
 }

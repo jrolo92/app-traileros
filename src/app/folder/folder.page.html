@@ -41,6 +41,8 @@
         <div class="w-100" *ngIf="(i + 1) % 2 === 0"></div>
       </ng-container>
     </ion-row>
+    <!-- Aquí vamos a añadir el formulario modal (fuera del for) -->
+    <app-formulario-modal (carreraCreada)="onCarreraCreada($event)"></app-formulario-modal>
     <app-footer></app-footer>
   </ng-container>
 </ion-grid>

@@ -41,14 +41,14 @@
     <ion-input
       label= "Distancia(km)"
       label-placement="floating"
-      placeholder="Distancia en km de la carrera"
+      placeholder="Distancia de la carrera (km)"
       [(ngModel)]=" nuevaCarrera.distanciaKm"></ion-input>
   </ion-item>
   <ion-item>
     <ion-input
       label= "Desnivel Positivo"
       label-placement="floating"
-      placeholder="Desnivel Positivo de la carrera"
+      placeholder="Desnivel Positivo de la carrera (m)"
       [(ngModel)]=" nuevaCarrera.desnivelPositivo"></ion-input>
   </ion-item>
   <ion-item>
@@ -56,7 +56,11 @@
       label= "Cartel"
       label-placement="floating"
       placeholder="Cartel o imágen de la carrera"
-      [(ngModel)]=" nuevaCarrera.descripcion"></ion-input>
+      [(ngModel)]=" nuevaCarrera.imagenUrl"></ion-input>
   </ion-item>
   
 </ion-list>
+
+<ion-button expand="block" (click)="agregarCarrera()" shape="shape" class="ion-margin-top ion-margin-bottom">
+  Añadir Carrera
+</ion-button>
