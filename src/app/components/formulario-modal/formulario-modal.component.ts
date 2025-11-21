@@ -8,16 +8,17 @@ import {
   IonLabel,
   IonSelect,
   IonSelectOption,
-  IonButton
-} from '@ionic/angular/standalone';
+  IonButton, IonContent } from '@ionic/angular/standalone';
 import { CarreraComponent } from '../carrera/carrera.component';
+import {ModalController} from '@ionic/angular';
+
 
 @Component({
   selector: 'app-formulario-modal',
   templateUrl: './formulario-modal.component.html',
   styleUrls: ['./formulario-modal.component.scss'],
   standalone: true,
-  imports: [
+  imports: [IonContent, 
     FormsModule,
     IonInput,
     IonItem,
@@ -27,6 +28,7 @@ import { CarreraComponent } from '../carrera/carrera.component';
     IonSelectOption,
     IonButton, 
     CarreraComponent
+
   ]
 })
 
@@ -35,6 +37,9 @@ export class FormularioModalComponent  implements OnInit {
 
   // 🔹 Declaramos el array de carreras
   public carreras: Carrera[] = [];
+
+  // Inyectamos el constructor
+  constructor() {}
 
   // Creamos una nueva clase para el formulario con los atributos: int ID, y todos los string (les damos valores iniciales):
   public nuevaCarrera: Carrera = {
@@ -97,9 +102,9 @@ export class FormularioModalComponent  implements OnInit {
       imagenUrl: ""
     };
     this.carreraCreada.emit(carreraParaAñadir);
+
   }
 
-  constructor() { }
 
   ngOnInit() {  }
 

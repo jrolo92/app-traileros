@@ -17,9 +17,9 @@
 
 <!-- Formulario para añadir carreras  -->
  <ng-container *ngIf="folder === 'inicio'">
-    <ion-button expand="block" (click)="abrirModalFormulario()" color="warning">
+    <!-- <ion-button expand="block" (click)="abrirModalFormulario()" color="primary">
       Añadir carrera
-    </ion-button>
+    </ion-button> -->
  </ng-container>
 
 <!-- Lista de carreras -->
@@ -42,7 +42,9 @@
       </ng-container>
     </ion-row>
     <!-- Aquí vamos a añadir el formulario modal (fuera del for) -->
-    <app-formulario-modal (carreraCreada)="onCarreraCreada($event)"></app-formulario-modal>
+    <ion-button expand="block" (click)="abrirModalFormulario()" color="warning">
+      Añadir carrera
+    </ion-button>
     <app-footer></app-footer>
   </ng-container>
 </ion-grid>
