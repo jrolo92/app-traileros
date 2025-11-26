@@ -15,18 +15,16 @@
     </ion-toolbar>
   </ion-header>
 
-<!-- Formulario para añadir carreras  -->
+<!-- Lo que se muestra en la pagina inicio  -->
  <ng-container *ngIf="folder === 'inicio'">
-    <!-- <ion-button expand="block" (click)="abrirModalFormulario()" color="primary">
-      Añadir carrera
-    </ion-button> -->
+
  </ng-container>
 
-<!-- Lista de carreras -->
+<!-- Lo que se mmuestra en la página carreras -->
 <ion-grid>
   <ng-container *ngIf="folder === 'carreras'">
     <ion-row class="ion-justify-content-center">
-      <ng-container *ngFor="let carrera of carreras; let i = index">
+      <ng-container *ngFor="let carrera of listaDeCarreras; let i = index">
         <ion-col size="12" size-md="6">
           <ion-card color="primary">
             <ion-card-header>
@@ -41,7 +39,7 @@
         <div class="w-100" *ngIf="(i + 1) % 2 === 0"></div>
       </ng-container>
     </ion-row>
-    <!-- Aquí vamos a añadir el formulario modal (fuera del for) -->
+    <!-- Aquí vamos a añadir el botón para el formulario modal (fuera del for) -->
     <ion-button expand="block" (click)="abrirModalFormulario()" color="warning">
       Añadir carrera
     </ion-button>

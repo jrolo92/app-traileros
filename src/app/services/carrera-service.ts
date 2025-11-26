@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Carrera, Dificultad } from '../interfaces/carrera';
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -37,7 +38,7 @@ export class CarreraService {
       ubicacion: 'Algodonales, Cádiz',
       distanciaKm: 42,
       desnivelPositivo: 4200,
-      imagenUrl: ''
+      imagenUrl: 'assets/images/viboras.jpg'
     },
     {
       id: 4,
@@ -68,7 +69,7 @@ export class CarreraService {
    * Devuelve una copia del array para proteger el original.
    */
   getCarreras(): Carrera[] {
-    return [...this.listaDeCarreras]; // Usamos '...' (spread syntax) para devolver una copia
+    return [...this.listaDeCarreras]; 
   };
-  
+
 }
