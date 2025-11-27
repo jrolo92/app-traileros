@@ -10,7 +10,8 @@ import {
   IonSelectOption,
   IonButton, IonContent } from '@ionic/angular/standalone';
 import { CarreraComponent } from '../carrera/carrera.component';
-import {ModalController} from '@ionic/angular';
+import {ModalController} from '@ionic/angular/standalone';
+import { CommonModule } from '@angular/common';
 
 
 @Component({
@@ -20,6 +21,7 @@ import {ModalController} from '@ionic/angular';
   standalone: true,
   imports: [IonContent, 
     FormsModule,
+    CommonModule,
     IonInput,
     IonItem,
     IonList,
@@ -39,7 +41,7 @@ export class FormularioModalComponent  implements OnInit {
   public carreras: Carrera[] = [];
 
   // Inyectamos el constructor
-  constructor() {}
+  constructor(private modalController: ModalController) {}
 
   // Creamos una nueva clase para el formulario con los atributos: int ID, y todos los string (les damos valores iniciales):
   public nuevaCarrera: Carrera = {
@@ -49,8 +51,10 @@ export class FormularioModalComponent  implements OnInit {
     descripcion: "",
     fecha: "",
     ubicacion: "",
-    distanciaKm: 0.00,
-    desnivelPositivo: 0.00,
+    // Forma de poner un tipo number como nulo sin que de error
+    // Me interesa que en ambos no salga un 0 si no el placeholder
+    distanciaKm: null as any,
+    desnivelPositivo: null as any,
     imagenUrl: ""
   };
 
@@ -103,6 +107,16 @@ export class FormularioModalComponent  implements OnInit {
     };
     this.carreraCreada.emit(carreraParaAñadir);
 
+  }
+
+  // Método para cerrar y enviar datos
+  guardar() {
+    this.modalController.dismiss(this.nuevaCarrera);
+  }
+
+  // Método para cerrar sin enviar nada
+  cancelar() {
+    this.modalController.dismiss();
   }
 
 
