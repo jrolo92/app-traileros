@@ -10,7 +10,7 @@ import {
   IonSelectOption,
   IonButton, IonContent } from '@ionic/angular/standalone';
 import { CarreraComponent } from '../carrera/carrera.component';
-import {ModalController} from '@ionic/angular/standalone';
+import {ModalController, AlertController, ToastController} from '@ionic/angular/standalone';
 import { CommonModule } from '@angular/common';
 
 
@@ -41,7 +41,11 @@ export class FormularioModalComponent  implements OnInit {
   public carreras: Carrera[] = [];
 
   // Inyectamos el constructor
-  constructor(private modalController: ModalController) {}
+  constructor(
+      private modalController: ModalController,
+      private alertController: AlertController,
+      private toastController: ToastController
+  ) {}
 
   // Creamos una nueva clase para el formulario con los atributos: int ID, y todos los string (les damos valores iniciales):
   public nuevaCarrera: Carrera = {
@@ -61,29 +65,15 @@ export class FormularioModalComponent  implements OnInit {
 
   // // Creamos una función que guarde los datos del formulario en objetos de la clase
   agregarCarrera(){
-    //Verificar que no se quedan los apartados vacios
-    if (this.nuevaCarrera.titulo.trim().length === 0){
-      //Alert: no puede estar vacio
-      return;
-    }      
-    if (this.nuevaCarrera.descripcion.trim().length === 0){
-      return;
-    }
-    if (this.nuevaCarrera.fecha.trim().length === 0){
-      return;
-    }
-    if (this.nuevaCarrera.ubicacion.trim().length === 0){
-      return;
-    }
-    if (this.nuevaCarrera.distanciaKm <= 0){
-      return;
-    }
-    if (this.nuevaCarrera.desnivelPositivo <= 0){
-      return;
-    }
-    if (this.nuevaCarrera.imagenUrl?.trim().length === 0){
-      return;
-    }
+    //Validamos que no se quedan los apartados vacios
+    if (this.nuevaCarrera.titulo.trim().length === 0) return;
+    if (this.nuevaCarrera.descripcion.trim().length === 0) return;
+    if (this.nuevaCarrera.fecha.trim().length === 0) return;
+    if (this.nuevaCarrera.ubicacion.trim().length === 0) return;
+    if (!this.nuevaCarrera.distanciaKm || this.nuevaCarrera.distanciaKm <= 0) return;
+    if (!this.nuevaCarrera.desnivelPositivo || this.nuevaCarrera.desnivelPositivo <= 0) return;
+    if (this.nuevaCarrera.imagenUrl?.trim().length === 0) return;
+
     // Creamos una copia del objeto para añadirlo al array de carreras
     const carreraParaAñadir: Carrera = {
       ...this.nuevaCarrera,   // Copia todas las propiedades del objeto nueva carrera
@@ -92,6 +82,8 @@ export class FormularioModalComponent  implements OnInit {
 
     // Añadimos la nueva carrera al principio del array de carreras
     this.carreras.unshift(carreraParaAñadir);
+    
+    this.carreraCreada.emit(carreraParaAñadir);
 
     // Reseteamos el objeto del formulario para la siguiente carrera
     this.nuevaCarrera = {    
@@ -105,13 +97,43 @@ export class FormularioModalComponent  implements OnInit {
       desnivelPositivo: 0,
       imagenUrl: ""
     };
-    this.carreraCreada.emit(carreraParaAñadir);
+    // this.carreraCreada.emit(carreraParaAñadir);
+
+    return carreraParaAñadir;
 
   }
 
   // Método para cerrar y enviar datos
-  guardar() {
-    this.modalController.dismiss(this.nuevaCarrera);
+  async guardar() {
+    const alert = await this.alertController.create({
+      header: 'Confirmar',
+      message: '¿Quieres guardar esta carrera?',
+      cssClass: 'alert-grey',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel'
+        },
+        {
+          text: 'Aceptar',
+          handler: async () => {
+            const carrera = this.agregarCarrera();
+            if (!carrera) return;
+
+            this.modalController.dismiss(carrera);
+
+            const toast = await this.toastController.create({
+              message: `Carrera "${carrera.titulo}" añadida correctamente`,
+              duration: 1500,
+              color: 'success'
+            });
+            await toast.present();
+          }
+        }
+      ]
+    });
+
+    await alert.present();
   }
 
   // Método para cerrar sin enviar nada

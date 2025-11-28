@@ -1,41 +1,71 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { AfterViewInit, Component, inject, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Carrera, Dificultad } from '../interfaces/carrera';
 import { CarreraComponent } from '../components/carrera/carrera.component';
 import { FooterComponent } from '../components/footer/footer.component';
-import { IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonList, IonItem, IonLabel, IonInput, IonImg } from '@ionic/angular/standalone';
+import { IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonList, IonItem, IonLabel, IonInput, IonImg, IonSkeletonText } from '@ionic/angular/standalone';
 import { IonGrid, IonRow, IonCol, IonButton, IonSelect, IonSelectOption } from '@ionic/angular/standalone'; // componentes de la rejilla y del select del formulario
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ToastController, AlertController, ModalController } from '@ionic/angular/standalone';
 import { FormularioModalComponent } from '../components/formulario-modal/formulario-modal.component';
 import { CarreraService } from '../services/carrera-service';
+import { AnimationController, Animation } from '@ionic/angular/standalone';
 
 @Component({
   selector: 'app-folder',
   templateUrl: './folder.page.html',
   styleUrls: ['./folder.page.scss'],
   standalone: true,
-  imports: [IonImg, IonInput, IonLabel, IonItem, IonList, IonCardContent, IonCardTitle, IonCardHeader, IonCard, IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle, IonContent, CarreraComponent, 
+  imports: [IonSkeletonText, IonImg, IonInput, IonLabel, IonItem, IonList, IonCardContent, IonCardTitle, IonCardHeader, IonCard, IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle, IonContent, CarreraComponent, 
     CommonModule, FooterComponent, IonGrid, IonRow, IonCol, IonButton, FormsModule, IonSelect, IonSelectOption, FormularioModalComponent],
 })
-export class FolderPage implements OnInit {
+export class FolderPage implements OnInit, AfterViewInit {
   public folder!: string;
   // Guardará la lista de carreras que nos devuelva el servicio
   public listaDeCarreras: Carrera[] = [];
-  // // Propiedad para el formulario de añadir nueva carrera
-  // public carreras: Carrera[] = [];
+  // Propiedad para controlar si está cargando la pagina o no (para mostrar skeletons):
+  public cargando: boolean = true;
+
+  // Obtenemos la referencia al elemento del HTML que queremos animar
+  @ViewChild('tarjetaExterna', {read: ElementRef}) tarjetaExterna!: ElementRef;
+  private animacion!: Animation;
 
   private activatedRoute = inject(ActivatedRoute);
 
-    // Inyectamos los tres controladores en el constructor 
+  // Inyectamos los controladores necesarios en el constructor 
   constructor(
     private toastController: ToastController,
     private alertController: AlertController,
     private modalController: ModalController,  // (de momento solo vamos a usar el modal para el formulario)
-    private carreraService: CarreraService
-  ) {}
+    // Controlador de servicio Carrera
+    private carreraService: CarreraService,
+    // Controlador de Animaciones
+    private animationCtrl: AnimationController
+  ) {
+    // Simulamos un tiempo de carga de datos de 1 segundos
+    setTimeout(()=>{
+      this.listaDeCarreras;
+      this.cargando = false;      
+      },
+      1000
+    );
+  }
 
+  // Método que ejecuta cuando la vista ya está lista (para animaciones)
+  ngAfterViewInit() {
+    // Creamos la animación
+    this.animacion = this.animationCtrl
+      .create()
+      // Referencia al elemento a animar
+      .addElement(this.tarjetaExterna.nativeElement)
+      .duration (800)
+      .fromTo('transform', 'translateX(-100px)', 'translateX(0px)')
+      .fromTo('opacity', '0', '1');
+
+    // Ejecutamos la animación
+    this.animacion.play();
+  }
 
   ngOnInit() {
     this.folder = this.activatedRoute.snapshot.paramMap.get('id') as string;

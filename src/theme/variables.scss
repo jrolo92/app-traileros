@@ -67,4 +67,12 @@
 
 	// Font Family
 	--ion-font-family: 'Montserrat';
+
+}
+
+.alert-guardar .alert-wrapper {
+--background: #4caf50; /* verde medio */
+--color: #fff;         /* texto blanco */
+--header-color: #fff;  /* color del título */
+--message-color: #e8f5e9; /* color del mensaje */
 }
