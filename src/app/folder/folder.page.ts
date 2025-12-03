@@ -1,10 +1,10 @@
-import { AfterViewInit, Component, inject, OnInit, ElementRef, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, inject, OnInit, ElementRef, ViewChildren, QueryList } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Carrera, Dificultad } from '../interfaces/carrera';
+import { Carrera } from '../interfaces/carrera';
 import { CarreraComponent } from '../components/carrera/carrera.component';
 import { FooterComponent } from '../components/footer/footer.component';
-import { IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonList, IonItem, IonLabel, IonInput, IonImg, IonSkeletonText } from '@ionic/angular/standalone';
-import { IonGrid, IonRow, IonCol, IonButton, IonSelect, IonSelectOption } from '@ionic/angular/standalone'; // componentes de la rejilla y del select del formulario
+import { IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonList, IonItem, IonLabel, IonSkeletonText } from '@ionic/angular/standalone';
+import { IonGrid, IonRow, IonCol, IonButton } from '@ionic/angular/standalone'; // componentes de la rejilla y del select del formulario
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ToastController, AlertController, ModalController } from '@ionic/angular/standalone';
@@ -17,8 +17,8 @@ import { AnimationController, Animation } from '@ionic/angular/standalone';
   templateUrl: './folder.page.html',
   styleUrls: ['./folder.page.scss'],
   standalone: true,
-  imports: [IonSkeletonText, IonImg, IonInput, IonLabel, IonItem, IonList, IonCardContent, IonCardTitle, IonCardHeader, IonCard, IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle, IonContent, CarreraComponent, 
-    CommonModule, FooterComponent, IonGrid, IonRow, IonCol, IonButton, FormsModule, IonSelect, IonSelectOption, FormularioModalComponent],
+  imports: [IonSkeletonText, IonLabel, IonItem, IonList, IonCardContent, IonCardTitle, IonCardHeader, IonCard, IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle, IonContent, CarreraComponent, 
+    CommonModule, FooterComponent, IonGrid, IonRow, IonCol, IonButton, FormsModule],
 })
 export class FolderPage implements OnInit, AfterViewInit {
   public folder!: string;
@@ -28,7 +28,8 @@ export class FolderPage implements OnInit, AfterViewInit {
   public cargando: boolean = true;
 
   // Obtenemos la referencia al elemento del HTML que queremos animar
-  @ViewChild('tarjetaExterna', {read: ElementRef}) tarjetaExterna!: ElementRef;
+  // Usamos ViewChildren para que pille todas las tarjetas en una Lista
+  @ViewChildren('tarjetaExterna', {read: ElementRef}) tarjetaExterna!: QueryList<ElementRef>;
   private animacion!: Animation;
 
   private activatedRoute = inject(ActivatedRoute);
@@ -45,7 +46,7 @@ export class FolderPage implements OnInit, AfterViewInit {
   ) {
     // Simulamos un tiempo de carga de datos de 1 segundos
     setTimeout(()=>{
-      this.listaDeCarreras;
+      this.cargarCarreras();
       this.cargando = false;      
       },
       1000
@@ -54,17 +55,19 @@ export class FolderPage implements OnInit, AfterViewInit {
 
   // Método que ejecuta cuando la vista ya está lista (para animaciones)
   ngAfterViewInit() {
-    // Creamos la animación
-    this.animacion = this.animationCtrl
-      .create()
-      // Referencia al elemento a animar
-      .addElement(this.tarjetaExterna.nativeElement)
-      .duration (800)
-      .fromTo('transform', 'translateX(-100px)', 'translateX(0px)')
-      .fromTo('opacity', '0', '1');
-
-    // Ejecutamos la animación
-    this.animacion.play();
+    // Usamos el setTimeOut para asegurar que no empieza la animación hasta que este todo cargado
+    setTimeout(() => {
+      this.tarjetaExterna.forEach(tarjeta => {
+        // Creamos la animación
+        const animacion = this.animationCtrl
+          .create()
+          .addElement(tarjeta.nativeElement)
+          .duration(800)
+          .fromTo('transform', 'translateX(-100px)', 'translateX(0px)')
+          .fromTo('opacity', '0', '1');
+        animacion.play();
+      });
+    }, 1000);
   }
 
   ngOnInit() {
