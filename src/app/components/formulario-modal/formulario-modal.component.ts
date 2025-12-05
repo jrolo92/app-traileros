@@ -8,8 +8,7 @@ import {
   IonLabel,
   IonSelect,
   IonSelectOption,
-  IonButton, IonContent } from '@ionic/angular/standalone';
-import { CarreraComponent } from '../carrera/carrera.component';
+  IonButton} from '@ionic/angular/standalone';
 import {ModalController, AlertController, ToastController} from '@ionic/angular/standalone';
 import { CommonModule } from '@angular/common';
 
@@ -19,7 +18,7 @@ import { CommonModule } from '@angular/common';
   templateUrl: './formulario-modal.component.html',
   styleUrls: ['./formulario-modal.component.scss'],
   standalone: true,
-  imports: [IonContent, 
+  imports: [ 
     FormsModule,
     CommonModule,
     IonInput,
@@ -29,8 +28,6 @@ import { CommonModule } from '@angular/common';
     IonSelect,
     IonSelectOption,
     IonButton, 
-    CarreraComponent
-
   ]
 })
 

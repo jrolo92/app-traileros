@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Carrera } from '../interfaces/carrera';
 import { CarreraComponent } from '../components/carrera/carrera.component';
 import { FooterComponent } from '../components/footer/footer.component';
-import { IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonList, IonItem, IonLabel, IonSkeletonText } from '@ionic/angular/standalone';
+import { IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonList, IonItem, IonLabel, IonSkeletonText, IonIcon, IonCardSubtitle } from '@ionic/angular/standalone';
 import { IonGrid, IonRow, IonCol, IonButton } from '@ionic/angular/standalone'; // componentes de la rejilla y del select del formulario
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -17,7 +17,7 @@ import { AnimationController, Animation } from '@ionic/angular/standalone';
   templateUrl: './folder.page.html',
   styleUrls: ['./folder.page.scss'],
   standalone: true,
-  imports: [IonSkeletonText, IonLabel, IonItem, IonList, IonCardContent, IonCardTitle, IonCardHeader, IonCard, IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle, IonContent, CarreraComponent, 
+  imports: [IonCardSubtitle, IonIcon, IonSkeletonText, IonLabel, IonItem, IonList, IonCardContent, IonCardTitle, IonCardHeader, IonCard, IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle, IonContent, CarreraComponent, 
     CommonModule, FooterComponent, IonGrid, IonRow, IonCol, IonButton, FormsModule],
 })
 export class FolderPage implements OnInit, AfterViewInit {

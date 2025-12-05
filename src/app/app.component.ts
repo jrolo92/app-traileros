@@ -7,13 +7,12 @@ import {
   IonContent,
   IonList,
   IonListHeader,
-  IonNote,
   IonMenuToggle,
   IonItem,
   IonIcon,
   IonLabel,
   IonRouterOutlet,
-  IonRouterLink, IonAvatar, IonImg, IonThumbnail } from '@ionic/angular/standalone';
+  IonRouterLink, IonImg, IonThumbnail } from '@ionic/angular/standalone';
 
 import { addIcons } from 'ionicons';
 import {
@@ -32,10 +31,10 @@ import {
   selector: 'app-root',
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss'],
-  imports: [IonImg, IonAvatar, 
+  imports: [IonImg, 
     RouterLink, RouterLinkActive,
     IonApp, IonSplitPane, IonMenu, IonContent,
-    IonList, IonListHeader, IonNote, IonMenuToggle,
+    IonList, IonListHeader, IonMenuToggle,
     IonItem, IonIcon, IonLabel, IonRouterLink, IonRouterOutlet, IonThumbnail
   ],
 })
@@ -48,7 +47,7 @@ export class AppComponent {
     { title: 'Resultados', url: '/folder/resultados', icon: 'flag' },
     { title: 'Rutas', url: '/folder/rutas', icon: 'map' },
     { title: 'Comunidad', url: '/folder/comunidad', icon: 'people' },
-    { title: 'Equipamiento', url: '/folder/equipamiento', icon: 'cube' }
+    { title: 'About', url: '/folder/about', icon: 'information-circle' }
   ];
 
   public labels = [

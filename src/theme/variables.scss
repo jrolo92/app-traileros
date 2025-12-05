@@ -68,6 +68,8 @@
 	// Font Family
 	--ion-font-family: 'Montserrat';
 
+	color-scheme:light;
+
 }
 
 .alert-guardar .alert-wrapper {
@@ -75,4 +77,29 @@
 --color: #fff;         /* texto blanco */
 --header-color: #fff;  /* color del título */
 --message-color: #e8f5e9; /* color del mensaje */
+}
+
+/* src/theme/variables.scss */
+
+/* 1. Definimos un "grupo" de estilos reutilizable (mixin) */
+@mixin dark-theme-variables {
+  --ion-color-primary: #52796f;
+  --ion-color-primary-rgb: 82,121,111;
+  --ion-color-primary-contrast: #ffffff;
+  
+  --ion-background-color: #121212;
+  --ion-text-color: #ffffff;
+  /* ... resto de variables ... */
+}
+
+// /* 2. Lo aplicamos para detección automática (Sistema) */
+// @media (prefers-color-scheme: dark) {
+//   body {
+//     @include dark-theme-variables;
+//   }
+// }
+
+/* 3. Lo aplicamos para activación manual (Clase .dark) */
+body.dark {
+  @include dark-theme-variables;
 }

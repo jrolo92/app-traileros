@@ -12,6 +12,16 @@ import { IonicRouteStrategy, provideIonicAngular } from '@ionic/angular/standalo
 import { routes } from './app/app.routes';
 import { AppComponent } from './app/app.component';
 
+// Iconos instalados manualmente
+import { addIcons } from 'ionicons';
+import { informationCircle, informationCircleOutline, informationCircleSharp } from 'ionicons/icons';
+
+addIcons({
+  'information-circle': informationCircle,
+  'information-circle-outline': informationCircleOutline,
+  'information-circle-sharp': informationCircleSharp
+})
+
 bootstrapApplication(AppComponent, {
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
