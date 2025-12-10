@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Carrera } from '../interfaces/carrera';
 import { CarreraComponent } from '../components/carrera/carrera.component';
 import { FooterComponent } from '../components/footer/footer.component';
-import { IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonList, IonItem, IonLabel, IonSkeletonText, IonIcon, IonCardSubtitle } from '@ionic/angular/standalone';
+import { IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonList, IonItem, IonLabel, IonSkeletonText, IonIcon, IonCardSubtitle, IonListHeader } from '@ionic/angular/standalone';
 import { IonGrid, IonRow, IonCol, IonButton } from '@ionic/angular/standalone'; // componentes de la rejilla y del select del formulario
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -11,13 +11,14 @@ import { ToastController, AlertController, ModalController } from '@ionic/angula
 import { FormularioModalComponent } from '../components/formulario-modal/formulario-modal.component';
 import { CarreraService } from '../services/carrera-service';
 import { AnimationController, Animation } from '@ionic/angular/standalone';
+import { SettingsService } from '../services/settings.service';
 
 @Component({
   selector: 'app-folder',
   templateUrl: './folder.page.html',
   styleUrls: ['./folder.page.scss'],
   standalone: true,
-  imports: [IonCardSubtitle, IonIcon, IonSkeletonText, IonLabel, IonItem, IonList, IonCardContent, IonCardTitle, IonCardHeader, IonCard, IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle, IonContent, CarreraComponent, 
+  imports: [IonListHeader, IonCardSubtitle, IonIcon, IonSkeletonText, IonLabel, IonItem, IonList, IonCardContent, IonCardTitle, IonCardHeader, IonCard, IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle, IonContent, CarreraComponent,
     CommonModule, FooterComponent, IonGrid, IonRow, IonCol, IonButton, FormsModule],
 })
 export class FolderPage implements OnInit, AfterViewInit {
@@ -26,10 +27,12 @@ export class FolderPage implements OnInit, AfterViewInit {
   public listaDeCarreras: Carrera[] = [];
   // Propiedad para controlar si está cargando la pagina o no (para mostrar skeletons):
   public cargando: boolean = true;
+  // Por defecto ponemos el modo oscuro en falso
+  modoOscuro: boolean = false;
 
   // Obtenemos la referencia al elemento del HTML que queremos animar
   // Usamos ViewChildren para que pille todas las tarjetas en una Lista
-  @ViewChildren('tarjetaExterna', {read: ElementRef}) tarjetaExterna!: QueryList<ElementRef>;
+  @ViewChildren('tarjetaExterna', { read: ElementRef }) tarjetaExterna!: QueryList<ElementRef>;
   private animacion!: Animation;
 
   private activatedRoute = inject(ActivatedRoute);
@@ -42,13 +45,15 @@ export class FolderPage implements OnInit, AfterViewInit {
     // Controlador de servicio Carrera
     private carreraService: CarreraService,
     // Controlador de Animaciones
-    private animationCtrl: AnimationController
+    private animationCtrl: AnimationController,
+    // Servicio de Ajustes
+    private settingsService: SettingsService
   ) {
     // Simulamos un tiempo de carga de datos de 1 segundos
-    setTimeout(()=>{
+    setTimeout(() => {
       this.cargarCarreras();
-      this.cargando = false;      
-      },
+      this.cargando = false;
+    },
       1000
     );
   }
@@ -70,8 +75,12 @@ export class FolderPage implements OnInit, AfterViewInit {
     }, 1000);
   }
 
-  ngOnInit() {
+  async ngOnInit() {
     this.folder = this.activatedRoute.snapshot.paramMap.get('id') as string;
+    // Al entrar, cargamos el valor guardado
+    // Si no existe (es la primera vez), settingsService.get devuelve null, 
+    // así que usamos '|| false' para que sea false por defecto.
+    this.modoOscuro = await this.settingsService.get('modo_oscuro') || false;
 
     if (this.folder === 'inicio') {
       // Aquí ira el contenido del apartado Inicio
@@ -84,11 +93,15 @@ export class FolderPage implements OnInit, AfterViewInit {
 
     }
 
+    if (this.folder === 'ajustes') {
+
+    }
+
   };
 
   // Aquí van a ir los métodos (fuera del ngOnInit)
   // Método para cargar el array de carreras
-  cargarCarreras(){
+  cargarCarreras() {
     this.listaDeCarreras = this.carreraService.getCarreras();
   }
 
@@ -115,6 +128,11 @@ export class FolderPage implements OnInit, AfterViewInit {
       });
       await toast.present();
     }
+  }
+
+  async cambiarModoOscuro() {
+    await this.settingsService.set('modo_oscuro', this.modoOscuro);
+    document.body.classList.toggle('dark', this.modoOscuro);
   }
 
 }

@@ -14,12 +14,15 @@ import { AppComponent } from './app/app.component';
 
 // Iconos instalados manualmente
 import { addIcons } from 'ionicons';
-import { informationCircle, informationCircleOutline, informationCircleSharp } from 'ionicons/icons';
+import { informationCircle, informationCircleOutline, informationCircleSharp, settings, settingsOutline, settingsSharp } from 'ionicons/icons';
 
 addIcons({
   'information-circle': informationCircle,
   'information-circle-outline': informationCircleOutline,
-  'information-circle-sharp': informationCircleSharp
+  'information-circle-sharp': informationCircleSharp,
+  'settings': settings,
+  'settings-outline': settingsOutline,
+  'settings-sharp': settingsSharp
 })
 
 bootstrapApplication(AppComponent, {

@@ -47,7 +47,8 @@ export class AppComponent {
     { title: 'Resultados', url: '/folder/resultados', icon: 'flag' },
     { title: 'Rutas', url: '/folder/rutas', icon: 'map' },
     { title: 'Comunidad', url: '/folder/comunidad', icon: 'people' },
-    { title: 'About', url: '/folder/about', icon: 'information-circle' }
+    { title: 'About', url: '/folder/about', icon: 'information-circle' },
+    { title: 'Ajustes', url: '/folder/ajustes', icon: 'settings'}
   ];
 
   public labels = [
@@ -70,6 +71,7 @@ export class AppComponent {
       peopleOutline, peopleSharp,
       cubeOutline, cubeSharp,
       bookmarkOutline, bookmarkSharp
+      
     });
   }
 }

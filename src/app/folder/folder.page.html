@@ -100,21 +100,31 @@
     </ng-container>
   </ion-grid>
 
-  <ng-container *ngIf="folder === 'about'">
-    <ion-content class="ion-padding">
+  <!-- ABOUT -->
+<ng-container *ngIf="folder === 'about'">
+  <ion-card class="ion-padding">
+    <ion-card-header>
+      <ion-card-title>App Traileros</ion-card-title>
+      <ion-card-subtitle>Versión 1.0</ion-card-subtitle>
+    </ion-card-header>
 
-    <ion-card>
-      <ion-card-header>
-        <ion-card-title>App Traileros</ion-card-title>
-        <ion-card-subtitle>Versión 1.0</ion-card-subtitle>
-      </ion-card-header>
+    <ion-card-content>
+      <p>Aplicación desarrollada para el módulo de Desarrollo de Aplicaciones Híbridas (DAH).</p>
+    </ion-card-content>
+  </ion-card>
+</ng-container>
 
-      <ion-card-content>
-        <p>Aplicación desarrollada para el módulo de Desarrollo de Aplicaciones Híbridas (DAH).</p>
-      </ion-card-content>
-    </ion-card>
+<!-- AJUSTES -->
+<ng-container *ngIf="folder === 'ajustes'">
+  <p>DEBUG: folder = {{ folder }}</p>
+  <ion-list>
+    <ion-list-header>Apariencia</ion-list-header>
 
-  </ion-content>
-  </ng-container>
+    <ion-item>
+      <ion-label>Modo Oscuro</ion-label>
+      <ion-toggle [(ngModel)]="modoOscuro" (ionChange)="cambiarModoOscuro()"></ion-toggle>
+    </ion-item>
+  </ion-list>
+</ng-container>
 
 </ion-content>
