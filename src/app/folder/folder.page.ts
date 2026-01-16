@@ -94,7 +94,7 @@ export class FolderPage implements OnInit, AfterViewInit {
     }
 
     if (this.folder === 'ajustes') {
-
+      
     }
 
   };
@@ -105,7 +105,7 @@ export class FolderPage implements OnInit, AfterViewInit {
     this.listaDeCarreras = this.carreraService.getCarreras();
   }
 
-  // Función para abrir el modal
+  // Función para abrir el modal del formulario
   async abrirModalFormulario() {
 
     const modal = await this.modalController.create({
