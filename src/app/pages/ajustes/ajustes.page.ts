@@ -10,7 +10,9 @@ import { SettingsService } from '../../services/settings.service';
   templateUrl: './ajustes.page.html',
   styleUrls: ['./ajustes.page.scss'],
   standalone: true,
-  imports: [IonLabel, IonItem, IonListHeader, IonList, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonToggle, ReactiveFormsModule]
+  imports: [IonLabel, IonItem, IonListHeader, IonList, IonContent, 
+            IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, 
+            IonToggle, ReactiveFormsModule]
 })
 export class AjustesPage implements OnInit {
   // Por defecto estará apagado el modo oscuro
@@ -26,23 +28,23 @@ export class AjustesPage implements OnInit {
     this.modoOscuro = await this.settingsService.get('modo_oscuro') || false;
     
     // Aplicamos el tema inmediatamente al entrar por si acaso
-    this.aplicarTema(this.modoOscuro);
+    // this.aplicarTema(this.modoOscuro);
   }
 
   // También debe ser async porque settingsService.set devuelve una promesa
   async cambiarModoOscuro() {
     // 1. Guardamos el nuevo valor en la base de datos
-    await this.settingsService.set('modo_oscuro', this.modoOscuro);
+    await this.settingsService.setModoOscuro(this.modoOscuro);
     
     // 2. Aplicamos el cambio visualmente
-    this.aplicarTema(this.modoOscuro);
+    // this.aplicarTema(this.modoOscuro);
   }
 
-  aplicarTema(esOscuro: boolean) {
-    // Añadimos o quitamos la clase 'dark' al body del documento
-    // Esto activa los estilos que definiremos en variables.scss
-    document.body.classList.toggle('dark', esOscuro);
-  }
+  // aplicarTema(esOscuro: boolean) {
+  //   // Añadimos o quitamos la clase 'dark' al body del documento
+  //   // Esto activa los estilos que definiremos en variables.scss
+  //   document.body.classList.toggle('dark', esOscuro);
+  // }
   
 
 }

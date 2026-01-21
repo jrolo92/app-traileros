@@ -26,6 +26,7 @@ import {
   cubeOutline, cubeSharp,
   bookmarkOutline, bookmarkSharp
 } from 'ionicons/icons';
+import { SettingsService } from './services/settings.service';
 
 @Component({
   selector: 'app-root',
@@ -60,7 +61,7 @@ export class AppComponent {
     'Recordatorios'
   ];
 
-  constructor() {
+  constructor(private settings: SettingsService) {
     addIcons({
       homeOutline, homeSharp,
       walkOutline, walkSharp,
@@ -73,5 +74,8 @@ export class AppComponent {
       bookmarkOutline, bookmarkSharp
       
     });
+    this.settings.modoOscuro$.subscribe(isDark => { document.body.classList.toggle('dark', isDark); });
   }
+
+  
 }

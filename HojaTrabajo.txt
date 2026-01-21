@@ -1,0 +1,2 @@
+21/01/26 --> Optimización de la configuración del modo oscuro (usando Storage).
+	     Faltan las mejoras del tema 4.

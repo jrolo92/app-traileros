@@ -6,12 +6,12 @@ import { FooterComponent } from '../components/footer/footer.component';
 import { IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonList, IonItem, IonLabel, IonSkeletonText, IonIcon, IonCardSubtitle, IonListHeader } from '@ionic/angular/standalone';
 import { IonGrid, IonRow, IonCol, IonButton } from '@ionic/angular/standalone'; // componentes de la rejilla y del select del formulario
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+// import { FormsModule } from '@angular/forms';
 import { ToastController, AlertController, ModalController } from '@ionic/angular/standalone';
 import { FormularioModalComponent } from '../components/formulario-modal/formulario-modal.component';
 import { CarreraService } from '../services/carrera-service';
 import { AnimationController, Animation } from '@ionic/angular/standalone';
-import { SettingsService } from '../services/settings.service';
+// import { SettingsService } from '../services/settings.service';
 
 @Component({
   selector: 'app-folder',
@@ -28,7 +28,7 @@ export class FolderPage implements OnInit, AfterViewInit {
   // Propiedad para controlar si está cargando la pagina o no (para mostrar skeletons):
   public cargando: boolean = true;
   // Por defecto ponemos el modo oscuro en falso
-  modoOscuro: boolean = false;
+  // modoOscuro: boolean = false;
 
   // Obtenemos la referencia al elemento del HTML que queremos animar
   // Usamos ViewChildren para que pille todas las tarjetas en una Lista
@@ -47,7 +47,7 @@ export class FolderPage implements OnInit, AfterViewInit {
     // Controlador de Animaciones
     private animationCtrl: AnimationController,
     // Servicio de Ajustes
-    private settingsService: SettingsService
+    // private settingsService: SettingsService
   ) {
     // Simulamos un tiempo de carga de datos de 1 segundos
     setTimeout(() => {
@@ -76,11 +76,16 @@ export class FolderPage implements OnInit, AfterViewInit {
   }
 
   async ngOnInit() {
+    // this.folder = this.activatedRoute.snapshot.paramMap.get('id') as string;
+    // // Al entrar, cargamos el valor guardado
+    // // Si no existe (es la primera vez), settingsService.get devuelve null, 
+    // // así que usamos '|| false' para que sea false por defecto.
+    // this.modoOscuro = await this.settingsService.get('modo_oscuro') || false;
+    // // Aplicamos el tema inmediatamente al entrar por si acaso
+    // this.aplicarTema(this.modoOscuro);
+
+    // console.log(this.modoOscuro);
     this.folder = this.activatedRoute.snapshot.paramMap.get('id') as string;
-    // Al entrar, cargamos el valor guardado
-    // Si no existe (es la primera vez), settingsService.get devuelve null, 
-    // así que usamos '|| false' para que sea false por defecto.
-    this.modoOscuro = await this.settingsService.get('modo_oscuro') || false;
 
     if (this.folder === 'inicio') {
       // Aquí ira el contenido del apartado Inicio
@@ -130,9 +135,15 @@ export class FolderPage implements OnInit, AfterViewInit {
     }
   }
 
-  async cambiarModoOscuro() {
-    await this.settingsService.set('modo_oscuro', this.modoOscuro);
-    document.body.classList.toggle('dark', this.modoOscuro);
-  }
+  // async cambiarModoOscuro() {
+  //   await this.settingsService.set('modo_oscuro', this.modoOscuro);
+  //   document.body.classList.toggle('dark', this.modoOscuro);
+  // }
+
+  // aplicarTema(esOscuro: boolean) {
+  //   // Añadimos o quitamos la clase 'dark' al body del documento
+  //   // Esto activa los estilos que definiremos en variables.scss
+  //   document.body.classList.toggle('dark', esOscuro);
+  // }
 
 }
