@@ -17,7 +17,10 @@
 
   <!-- Lo que se muestra en la pagina inicio  -->
   <ng-container *ngIf="folder === 'inicio'">
-    
+    <div class="ion-padding"> 
+      <h2 *ngIf="nombreUsuario">Hola, {{ nombreUsuario }}</h2> 
+      <h2 *ngIf="!nombreUsuario">Hola, Invitado</h2> 
+    </div>
   </ng-container>
 
   <!-- Lo que se mmuestra en la página carreras -->
@@ -105,17 +108,10 @@
   </ion-card>
 </ng-container>
 
-<!-- AJUSTES
+<!-- AJUSTES -->
 <ng-container *ngIf="folder === 'ajustes'">
-  <p>DEBUG: folder = {{ folder }}</p>
-  <ion-list>
-    <ion-list-header>Apariencia</ion-list-header>
-
-    <ion-item>
-      <ion-label>Modo Oscuro</ion-label>
-      <ion-toggle [(ngModel)]="modoOscuro" (ionChange)="cambiarModoOscuro()"></ion-toggle>
-    </ion-item>
-  </ion-list>
+  <!-- <app-ajustes></app-ajustes> -->
 </ng-container>
 
-</ion-content> -->
+
+</ion-content> 

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonList, IonListHeader, IonItem, IonLabel, IonToggle } from '@ionic/angular/standalone';
+import { IonList, IonListHeader, IonItem, IonLabel, IonToggle, IonInput } from '@ionic/angular/standalone';
 import { SettingsService } from '../../services/settings.service';
 
 
@@ -10,13 +10,13 @@ import { SettingsService } from '../../services/settings.service';
   templateUrl: './ajustes.page.html',
   styleUrls: ['./ajustes.page.scss'],
   standalone: true,
-  imports: [IonLabel, IonItem, IonListHeader, IonList, IonContent, 
-            IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, 
-            IonToggle, ReactiveFormsModule]
+  imports: [ CommonModule, FormsModule, ReactiveFormsModule, IonList, IonListHeader, IonItem, IonLabel, IonToggle, IonInput ]
 })
 export class AjustesPage implements OnInit {
   // Por defecto estará apagado el modo oscuro
-  modoOscuro: boolean = false; 
+  modoOscuro: boolean = false;
+  // Creo una vv para el nombre de usuario (que se va a mostrar en la pagina inicial)
+  nombreUsuario: string = '';
 
   constructor(private settingsService: SettingsService) { }
 
@@ -26,25 +26,23 @@ export class AjustesPage implements OnInit {
     // Si no existe (es la primera vez), settingsService.get devuelve null, 
     // así que usamos '|| false' para que sea false por defecto.
     this.modoOscuro = await this.settingsService.get('modo_oscuro') || false;
-    
-    // Aplicamos el tema inmediatamente al entrar por si acaso
-    // this.aplicarTema(this.modoOscuro);
+    // Cargamos el valor guardado de nombre de usuario (si existe)
+    this.nombreUsuario = await this.settingsService.get('nombre_usuario') || '';
+
   }
 
   // También debe ser async porque settingsService.set devuelve una promesa
   async cambiarModoOscuro() {
     // 1. Guardamos el nuevo valor en la base de datos
     await this.settingsService.setModoOscuro(this.modoOscuro);
+    // 2. Se le aplica al body
+    document.body.classList.toggle('dark', this.modoOscuro);
     
-    // 2. Aplicamos el cambio visualmente
-    // this.aplicarTema(this.modoOscuro);
   }
 
-  // aplicarTema(esOscuro: boolean) {
-  //   // Añadimos o quitamos la clase 'dark' al body del documento
-  //   // Esto activa los estilos que definiremos en variables.scss
-  //   document.body.classList.toggle('dark', esOscuro);
-  // }
+  // Método para guarda el nombre de usuario
+  async guardarNombre() { 
+    await this.settingsService.set('nombre_usuario', this.nombreUsuario); 
+  }
   
-
 }
