@@ -24,6 +24,7 @@ import { SettingsService } from '../services/settings.service';
     IonGrid, IonRow, IonCol, IonButton
   ],
 })
+
 export class FolderPage implements OnInit, AfterViewInit {
 
   public folder!: string;
@@ -63,6 +64,13 @@ export class FolderPage implements OnInit, AfterViewInit {
       this.cargando = false;
     }, 1000);
   }
+
+    // Se ejecuta cada vez que la página va a entrar en pantalla (antes de la animación)
+  async ionViewWillEnter(){
+    await this.cargarCarreras();
+  }
+
+  
 
   // Método que ejecuta cuando la vista ya está lista (para animaciones)
   ngAfterViewInit() {
@@ -119,11 +127,17 @@ export class FolderPage implements OnInit, AfterViewInit {
 
   // Aquí van a ir los métodos (fuera del ngOnInit)
   // Método para cargar el array de carreras
-  cargarCarreras() {
-    this.listaDeCarreras = this.carreraService.getCarreras();
+  async cargarCarreras() {
+    // Debemos esperar a que lleguen los datos del servidor
+    try {
+      this.listaDeCarreras = await this.carreraService.getCarreras();
+    } catch (error){
+      console.error('Error al cargar las carreras:', error);
+    }
+    
   }
 
-  // Función para abrir el modal del formulario
+  // Método para abrir el modal del formulario
   async abrirModalFormulario() {
 
     const modal = await this.modalController.create({
@@ -135,16 +149,27 @@ export class FolderPage implements OnInit, AfterViewInit {
 
     // Esperas a que se cierre y recibes datos
     const { data } = await modal.onDidDismiss<Carrera>();
+    // Si hay datos en el formulario
     if (data) {
-      this.listaDeCarreras.unshift(data);
+      try {
+        // Llamamos al servicio para enviar el objeto al server
+        const carreraCreada = await this.carreraService.agregarCarrera(data);
+        // Añadimos el resultado a nuestra lista y la ponemos al principio
+        this.listaDeCarreras.unshift(data);
+        // Mostramos mensaje de confirmación de tipo toast:
+        const toast = await this.toastController.create({
+          message: `Carrera "${data.titulo}" añadida correctamente`,
+          duration: 1000,
+          color: 'success'
+        });
+        await toast.present();
+      } catch (error){
+        console.error('Error al guardar la carrera:', error);
+      }
 
-      // Mostramos mensaje de confirmación de tipo toast:
-      const toast = await this.toastController.create({
-        message: `Carrera "${data.titulo}" añadida correctamente`,
-        duration: 1000,
-        color: 'success'
-      });
-      await toast.present();
+      
+
+      
     }
   }
 

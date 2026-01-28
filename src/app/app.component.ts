@@ -43,7 +43,6 @@ export class AppComponent {
   public appPages = [
     { title: 'Inicio', url: '/folder/inicio', icon: 'home' },
     { title: 'Carreras', url: '/folder/carreras', icon: 'walk' },
-    { title: 'Mensajes', url: '/folder/mensajes', icon: 'mail' },
     { title: 'Inscripciones', url: '/folder/inscripciones', icon: 'pencil' },
     { title: 'Resultados', url: '/folder/resultados', icon: 'flag' },
     { title: 'Rutas', url: '/folder/rutas', icon: 'map' },

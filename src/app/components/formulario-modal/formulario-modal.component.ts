@@ -61,7 +61,7 @@ export class FormularioModalComponent  implements OnInit {
 
 
   // // Creamos una función que guarde los datos del formulario en objetos de la clase
-  agregarCarrera(){
+  agregarCarrera(): Carrera | undefined {
     //Validamos que no se quedan los apartados vacios
     if (this.nuevaCarrera.titulo.trim().length === 0) return;
     if (this.nuevaCarrera.descripcion.trim().length === 0) return;
@@ -77,11 +77,6 @@ export class FormularioModalComponent  implements OnInit {
       id: Date.now()          // Le asignamos un id único
     };
 
-    // Añadimos la nueva carrera al principio del array de carreras
-    this.carreras.unshift(carreraParaAñadir);
-    
-    this.carreraCreada.emit(carreraParaAñadir);
-
     // Reseteamos el objeto del formulario para la siguiente carrera
     this.nuevaCarrera = {    
       id: 0,
@@ -90,11 +85,11 @@ export class FormularioModalComponent  implements OnInit {
       descripcion: "",
       fecha: "",
       ubicacion: "",
-      distanciaKm: 0,
-      desnivelPositivo: 0,
+      // Para que no salga un 0 como placeholder
+      distanciaKm: null as any, 
+      desnivelPositivo: null as any,
       imagenUrl: ""
     };
-    // this.carreraCreada.emit(carreraParaAñadir);
 
     return carreraParaAñadir;
 
@@ -107,29 +102,24 @@ export class FormularioModalComponent  implements OnInit {
       message: '¿Quieres guardar esta carrera?',
       cssClass: 'alert-grey',
       buttons: [
-        {
-          text: 'Cancelar',
-          role: 'cancel'
-        },
+        { text: 'Cancelar', role: 'cancel' },
         {
           text: 'Aceptar',
-          handler: async () => {
+          handler: () => {
             const carrera = this.agregarCarrera();
-            if (!carrera) return;
 
-            this.modalController.dismiss(carrera);
-
-            const toast = await this.toastController.create({
-              message: `Carrera "${carrera.titulo}" añadida correctamente`,
-              duration: 1500,
-              color: 'success'
-            });
-            await toast.present();
+            if (carrera) {
+              this.modalController.dismiss(carrera);
+              return true;
+            } else {
+              // Falló validación
+              this.mostrarToastError();
+              return false;
+            }
           }
         }
       ]
     });
-
     await alert.present();
   }
 
@@ -138,6 +128,15 @@ export class FormularioModalComponent  implements OnInit {
     this.modalController.dismiss();
   }
 
+  // Método para mostrar Toast con mensaje de error
+private async mostrarToastError() {
+  const toast = await this.toastController.create({
+    message: 'Por favor, rellena todos los campos correctamente.',
+    duration: 2000,
+    color: 'warning'
+  });
+  await toast.present();
+}
 
   ngOnInit() {  }
 

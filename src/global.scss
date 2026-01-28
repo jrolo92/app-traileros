@@ -40,4 +40,30 @@
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 @import '@ionic/angular/css/palettes/dark.system.css';
 
+/* Estilos personalizados para tarjetas de carreras */
 
+// Forzar altura igual en tarjetas
+.equal-height-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch; // Esto obliga a las columnas a medir lo mismo
+
+  ion-col {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  ion-card {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    margin: 8px;
+    width: auto; 
+  }
+
+  ion-card-content {
+    flex-grow: 1;
+    overflow: hidden;
+  }
+}
