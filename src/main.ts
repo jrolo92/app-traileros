@@ -13,6 +13,9 @@ import { importProvidersFrom } from '@angular/core';
 import { IonicStorageModule } from '@ionic/storage-angular';
 import { Drivers } from '@ionic/storage';
 
+// Imports para el proveedor HTTP (JSON Server)
+import { provideHttpClient } from '@angular/common/http';
+
 import { routes } from './app/app.routes';
 import { AppComponent } from './app/app.component';
 
@@ -37,10 +40,13 @@ bootstrapApplication(AppComponent, {
     // Esta línea también es necesaria para cambiar el idioma a español
     { provide: LOCALE_ID, useValue: 'es'},
 
-    // 2. Configuramos Ionic Storage
+    // Habilitar cliente HTTP (JSON Server)
+    provideHttpClient(),
+
+    // Configuración Ionic Storage
     importProvidersFrom(
       IonicStorageModule.forRoot({
-        name: '__mydb', // Nombre de la base de datos (puedes poner el nombre de tu app)
+        name: '__mydb', // Nombre de la base de datos
         driverOrder: [Drivers.IndexedDB, Drivers.LocalStorage] // Orden de preferencia
       })
     ),

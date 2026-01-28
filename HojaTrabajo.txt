@@ -1,2 +1,4 @@
 21/01/26 --> Optimización de la configuración del modo oscuro (usando Storage).
 	     Faltan las mejoras del tema 4.
+23/01/26 --> Solo algunas mejoras tema 4. Comienzo tema 5.
+28/02/26 --> Realizo puntos 1 y 2 del tema 5. Seguir por el punto 3.
