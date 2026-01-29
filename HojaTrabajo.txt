@@ -1,4 +1,6 @@
 21/01/26 --> Optimización de la configuración del modo oscuro (usando Storage).
 	     Faltan las mejoras del tema 4.
 23/01/26 --> Solo algunas mejoras tema 4. Comienzo tema 5.
-28/02/26 --> Realizo puntos 1, 2, 3, 4 y 5 del tema 5. Consigue guardar carreras en server/API
+28/01/26 --> Realizo puntos 1, 2, 3, 4 y 5 del tema 5. Consigue guardar carreras en server/API
+29/01/26 --> Realizo punto 6 (tema 5): pagina de detalles con carrera y modificación de detalles mediante el formulario modal.
+

@@ -1,14 +1,15 @@
 <ion-list>
   <ion-item>
     <ion-input
-      label="Titulo"
+      label="Título"
       label-placement="floating"
       placeholder="Título de la carrera"
-      [(ngModel)]="nuevaCarrera.titulo"> <!-- Enlazado a la propiedad 'titulo' del objeto -->
+      [(ngModel)]="nuevaCarrera.titulo">
     </ion-input>
   </ion-item>
+
   <ion-item>
-  <ion-label>Dificultad</ion-label>
+    <ion-label>Dificultad</ion-label>
     <ion-select [(ngModel)]="nuevaCarrera.dificultad" interface="popover">
       <ion-select-option value="Muy Alta">Muy Alta</ion-select-option>
       <ion-select-option value="Alta">Alta</ion-select-option>
@@ -16,55 +17,56 @@
       <ion-select-option value="Moderada">Moderada</ion-select-option>
     </ion-select>
   </ion-item>
+
   <ion-item>
     <ion-input
-      label= "Descripción"
+      label="Descripción"
       label-placement="floating"
-      placeholder="Breve Descripción de la carrera"
       [(ngModel)]="nuevaCarrera.descripcion"></ion-input>
   </ion-item>
+
   <ion-item>
     <ion-input
-      label= "Fecha"
+      label="Fecha"
       label-placement="floating"
-      placeholder="Fecha de la carrera"
       [(ngModel)]="nuevaCarrera.fecha"></ion-input>
   </ion-item>
+
   <ion-item>
     <ion-input
-      label= "Ubicación"
+      label="Ubicación"
       label-placement="floating"
-      placeholder="¿Dónde es la carrera?"
       [(ngModel)]="nuevaCarrera.ubicacion"></ion-input>
   </ion-item>
+
   <ion-item>
     <ion-input
-      label= "Distancia(km)"
+      type="number"
+      label="Distancia (km)"
       label-placement="floating"
-      placeholder="Distancia de la carrera (km)"
       [(ngModel)]="nuevaCarrera.distanciaKm"></ion-input>
   </ion-item>
+
   <ion-item>
     <ion-input
-      label= "Desnivel Positivo"
+      type="number"
+      label="Desnivel (+m)"
       label-placement="floating"
-      placeholder="Desnivel Positivo de la carrera (m)"
       [(ngModel)]="nuevaCarrera.desnivelPositivo"></ion-input>
   </ion-item>
+
   <ion-item>
     <ion-input
-      label= "Cartel"
+      label="URL Imagen"
       label-placement="floating"
-      placeholder="Cartel o imágen de la carrera"
       [(ngModel)]="nuevaCarrera.imagenUrl"></ion-input>
   </ion-item>
-  
 </ion-list>
 
-<ion-button expand="block" color="success" (click)="guardar()" class="ion-margin-top ion-margin-bottom">
-  Guardar
+<ion-button expand="block" color="success" (click)="guardar()" class="ion-margin">
+  {{ carreraParaEditar ? 'Actualizar Cambios' : 'Registrar Carrera' }}
 </ion-button>
 
-<ion-button expand="block" color="medium" (click)="cancelar()" class="ion-margin-top ion-margin-bottom">
+<ion-button expand="block" fill="clear" color="medium" (click)="cancelar()">
   Cancelar
 </ion-button>

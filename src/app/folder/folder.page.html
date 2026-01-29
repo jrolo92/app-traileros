@@ -73,7 +73,7 @@
       <ion-row class="ion-justify-content-center equal-height-row">
         <ng-container *ngFor="let carrera of listaDeCarreras; let i = index">
           <ion-col size="12" size-md="6">
-            <ion-card color="primary">
+            <ion-card color="primary" (click)="verDetalle(carrera.id)" style="cursor: pointer;">
               <ion-card-header #tarjetaExterna>
                 <ion-card-title>{{ carrera.titulo }}</ion-card-title>
               </ion-card-header>

@@ -70,8 +70,6 @@ export class FolderPage implements OnInit, AfterViewInit {
     await this.cargarCarreras();
   }
 
-  
-
   // Método que ejecuta cuando la vista ya está lista (para animaciones)
   ngAfterViewInit() {
     // Usamos el setTimeOut para asegurar que no empieza la animación hasta que este todo cargado
@@ -165,11 +163,7 @@ export class FolderPage implements OnInit, AfterViewInit {
         await toast.present();
       } catch (error){
         console.error('Error al guardar la carrera:', error);
-      }
-
-      
-
-      
+      }    
     }
   }
 
@@ -189,4 +183,45 @@ export class FolderPage implements OnInit, AfterViewInit {
     }, 300);
   }
 
+  /**
+   *  Método para implementar la funcionalidad de borrado de una carrera
+   */
+  async borrarCarrera (id:string | number){
+    try {
+      // Llamamos al servicio para borrar
+      await this.carreraService.deleteCarrera(id);
+
+      // Recargamos la lista para que desaparezca
+      await this.cargarCarreras();
+    } catch (error) {
+      console.error('Error al borrar: ', error);
+    }
+  }
+
+  /**
+   *  Método para implementar la actualización de una carrera
+   */
+  async actualizarCarrera(carrera: Carrera) {
+    try {
+      // Enviamos el objeto completo con todos los cambios modificados
+      await this.carreraService.updateCarrera(carrera);
+      console.log('Todos los cambios guardados');
+      // Mostramos un toast de confirmación
+      const toast = await this.toastController.create({
+        message: 'Carrera actualizada',
+        duration: 1500,
+        position: 'bottom',
+        color: 'succes'
+      });
+      await toast.present();
+    } catch (error) {
+      console.error('Error al guardar cambios:', error);
+    }
+  }
+
+  // Método para cargar los detalles de una carrera
+  verDetalle(id: string | number) {
+  // Esto navegará a /folder/carreras/1 (por ejemplo)
+  this.router.navigate(['/folder/carreras', id]);
+}
 }

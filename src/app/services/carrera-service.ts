@@ -18,26 +18,30 @@ export class CarreraService {
   constructor(private http: HttpClient){}
 
   /**
-   * Método público y asíncrono para obtener todas las carreras.
+   *  Método para obtener todas las carreras (GET).
    */
   async getCarreras(): Promise<Carrera[]> {
     // Hacemos la petición GET a la URL.
     // Usamos el genérico <Carrera[]> para decirle a TypeScript que esperamos un array de carreras.
     // firstValueFrom convierte el Observable en una Promesa.
-    return firstValueFrom(this.http.get<Carrera[]>(this._url));
+    return firstValueFrom(
+      this.http.get<Carrera[]>(this._url)
+    );
   };
 
   /**
-   * Método público y asínccrono para obtener una carrera por su ID (GET /carreras/ID).
+   *  Método para obtener una carrera por su ID (GET /carreras/ID).
    */
   async getCarreraPorId(id: string | number): Promise<Carrera> {
     // Preparamos la URL específica
     const urlEspecifica = `${this._url}/${id}`;
-    return firstValueFrom(this.http.get<Carrera>(urlEspecifica));
+    return firstValueFrom(
+      this.http.get<Carrera>(urlEspecifica)
+    );
   }
 
   /**
-   * Método para añadir nuevas carreras al servidor (POST /carreras)
+   *  Método para añadir nuevas carreras al servidor (POST /carreras)
    */
   async agregarCarrera(carrera: any): Promise<Carrera> {
     // 1. Eliminamos el ID antes de enviar
@@ -50,4 +54,33 @@ export class CarreraService {
       this.http.post<Carrera>(this._url, carreraSinId)
     );
   }
+
+  /**
+   *  Método para actualizar una carrera existente (PUT /carreras/id)
+   * Se envía el objeto completo con los cambios ya aplicados
+   */
+  async updateCarrera(carrera: Carrera) : Promise<Carrera> {
+    // Preparamos la URL específica
+    const urlEspecifica = `${this._url}/${carrera.id}`;
+
+    // Hacemos la petición PUT enviando el objeto modificado
+    return firstValueFrom(
+      this.http.put<Carrera>(urlEspecifica, carrera)
+    );
+
+  }
+
+  /**
+   *  Método para eliminar una tarea por su id (DELETE /carreras/id)
+   */
+  async deleteCarrera(id: string | number): Promise<void> {
+    const urlEspecifica = `${this._url}/${id}`;
+
+    // Hacemos la petición DELETE. No enviamos body.
+    // firstValueFrom convierte el Observable en Promesa.
+    return firstValueFrom(
+      this.http.delete<void>(urlEspecifica)
+    );
+  }
+
 }
