@@ -8,7 +8,7 @@ import { CarreraService } from 'src/app/services/carrera-service';
 import { Carrera } from 'src/app/interfaces/carrera';
 import { Dificultad } from 'src/app/interfaces/carrera';
 
-import { ModalController, ToastController } from '@ionic/angular/standalone';
+import { AlertController, ModalController, ToastController } from '@ionic/angular/standalone';
 import { FormularioModalComponent } from '../../components/formulario-modal/formulario-modal.component';
 
 
@@ -17,6 +17,8 @@ import{ IonButtons, IonBackButton, IonBadge, IonCard, IonCardHeader, IonCardSubt
  } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { locationOutline, calendarOutline, speedometerOutline, prismOutline } from 'ionicons/icons';
+
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-detalle-carrera',
@@ -37,7 +39,9 @@ export class DetalleCarreraPage implements OnInit {
     private route: ActivatedRoute,
     private carreraService: CarreraService,
     private modalController: ModalController,
-    private toastController: ToastController
+    private toastController: ToastController,
+    private alertController: AlertController,
+    private router: Router
   ) {
     // Registramos los iconos que vamos a usar
     addIcons({ locationOutline, calendarOutline, speedometerOutline, prismOutline });
@@ -52,6 +56,49 @@ export class DetalleCarreraPage implements OnInit {
       this.carrera = await this.carreraService.getCarreraPorId(id);
     }
   }
+
+  // Método para eliminar la carrera
+async eliminarCarrera() {
+  if (!this.carrera) return;
+
+  const alert = await this.alertController.create({
+    header: '¿Eliminar carrera?',
+    message: `¿Estás seguro de que quieres borrar "${this.carrera.titulo}"? Esta acción no se puede deshacer.`,
+    buttons: [
+      {
+        text: 'Cancelar',
+        role: 'cancel',
+        cssClass: 'secondary'
+      },
+      {
+        text: 'Eliminar',
+        role: 'destructive', // Esto lo pone en rojo en iOS
+        handler: async () => {
+          try {
+            // 1. Llamamos al servicio para borrar en el servidor
+            await this.carreraService.deleteCarrera(this.carrera!.id);
+
+            // 2. Mostramos confirmación
+            const toast = await this.toastController.create({
+              message: 'Carrera eliminada correctamente',
+              duration: 2000,
+              color: 'danger'
+            });
+            await toast.present();
+
+            // 3. Volvemos a la lista principal
+            this.router.navigate(['/folder/carreras']); 
+            
+          } catch (error) {
+            console.error('Error al eliminar:', error);
+          }
+        }
+      }
+    ]
+  });
+
+  await alert.present();
+}
 
   async abrirModalEditar() {
     if (!this.carrera) return;

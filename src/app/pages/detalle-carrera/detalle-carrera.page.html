@@ -53,11 +53,16 @@
             <p>{{ carrera.descripcion }}</p>
           </div>
 
+          <!-- Botones -->
           <ion-button expand="block" shape="round" color="success" class="ion-margin-top">
             Inscribirme ahora
           </ion-button>
           <ion-button expand="block" shape="round" color="success" class="ion-margin-top" (click)="abrirModalEditar()">
             Modificar detalles
+          </ion-button>
+          <ion-button expand="block" fill="clear" color="danger" (click)="eliminarCarrera()">
+            <ion-icon name="trash-outline" slot="start"></ion-icon>
+            Eliminar Carrera
           </ion-button>
         </ion-card-content>
       </ion-card>

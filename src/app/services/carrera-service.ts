@@ -43,7 +43,7 @@ export class CarreraService {
   /**
    *  Método para añadir nuevas carreras al servidor (POST /carreras)
    */
-  async agregarCarrera(carrera: any): Promise<Carrera> {
+  async agregarCarrera(carrera: Carrera): Promise<Carrera> {
     // 1. Eliminamos el ID antes de enviar
     // Creamos una copia del objeto sin el campo id
     const {id, ...carreraSinId} = carrera;
