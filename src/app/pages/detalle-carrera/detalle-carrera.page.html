@@ -9,7 +9,7 @@
 
 <ion-content [fullscreen]="true">
   @if (carrera) {
-    
+    <div class="layout">
     <div class="poster-container">
       <img [src]="carrera.imagenUrl || 'assets/images/default-trail.jpg'" alt="Cartel" />
     </div>
@@ -66,6 +66,7 @@
           </ion-button>
         </ion-card-content>
       </ion-card>
+    </div>
     </div>
 
   } @else {

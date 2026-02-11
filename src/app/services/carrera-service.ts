@@ -4,6 +4,8 @@ import { Carrera, Dificultad } from '../interfaces/carrera';
 import { HttpClient } from '@angular/common/http';
 // Utilidad para promesas
 import {first, firstValueFrom } from 'rxjs';
+// Import para usar la vv global desde environment
+import { environment } from 'src/environments/environment';
 
 
 @Injectable({
@@ -12,7 +14,7 @@ import {first, firstValueFrom } from 'rxjs';
 export class CarreraService {
 
   // Definir la URL base de nuestra API (Por defecto JSON server: puerto 3000)
-  private _url = 'http://localhost:3000/carreras';
+  private _url = `${environment.apiUrl}/carreras`;
 
   // Inyectamos el servicio HTTP (JSON Server) en el constructor
   constructor(private http: HttpClient){}
