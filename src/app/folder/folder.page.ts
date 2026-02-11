@@ -4,13 +4,14 @@ import { Carrera } from '../interfaces/carrera';
 import { CarreraComponent } from '../components/carrera/carrera.component';
 import { FooterComponent } from '../components/footer/footer.component';
 import { IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonList, IonItem, IonLabel, IonSkeletonText, IonCardSubtitle } from '@ionic/angular/standalone';
-import { IonGrid, IonRow, IonCol, IonButton } from '@ionic/angular/standalone'; // componentes de la rejilla y del select del formulario
+import { IonGrid, IonRow, IonCol, IonButton, IonSelect, IonSelectOption } from '@ionic/angular/standalone'; // componentes de la rejilla y del select del formulario
 import { CommonModule } from '@angular/common';
 import { ToastController, AlertController, ModalController, LoadingController } from '@ionic/angular/standalone';
 import { FormularioModalComponent } from '../components/formulario-modal/formulario-modal.component';
 import { CarreraService } from '../services/carrera-service';
-import { AnimationController, Animation } from '@ionic/angular/standalone';
+import { AnimationController, Animation, IonSearchbar } from '@ionic/angular/standalone';
 import { SettingsService } from '../services/settings.service';
+import { SearchbarCustomEvent } from '@ionic/angular';
 
 @Component({
   selector: 'app-folder',
@@ -21,7 +22,7 @@ import { SettingsService } from '../services/settings.service';
     IonCardSubtitle, IonSkeletonText, IonLabel, IonItem, IonList,
     IonCardContent, IonCardTitle, IonCardHeader, IonCard, IonHeader, IonToolbar, IonButtons,
     IonMenuButton, IonTitle, IonContent, CarreraComponent, CommonModule, FooterComponent,
-    IonGrid, IonRow, IonCol, IonButton
+    IonGrid, IonRow, IonCol, IonButton, IonSearchbar, IonSelect, IonSelectOption
   ],
 })
 
@@ -34,6 +35,10 @@ export class FolderPage implements OnInit, AfterViewInit {
   public cargando: boolean = true;
   // Creamos la vv de nombre de usuario vacía para mostrarla en inicio una vez cargado el valor
   nombreUsuario: string = '';
+  // Vv para la búsqueda y ordenación de carreras
+  public textoBusqueda: string = '';
+  public campoOrden: string = 'id';
+  public direccionOrden: string = 'asc';
 
   // Obtenemos la referencia al elemento del HTML que queremos animar
   // Usamos ViewChildren para que pille todas las tarjetas en una Lista
@@ -232,6 +237,62 @@ export class FolderPage implements OnInit, AfterViewInit {
       console.error('Error al guardar cambios:', error);
       this.mostrarError('No se pudo modificar la carrera');
     }
+  }
+
+  /**
+   * Método para implementar la búsqueda de carreras filtrando en el servidor
+   * Usamos el evento específico como tipo del parámetro
+   */
+  async buscar(event: SearchbarCustomEvent) {
+    // Obtenemos el valor del buscador. 
+    // El operador '??' asegura que si es null/undefined, usemos un string vacío.
+    this.textoBusqueda = event.detail.value ?? '';
+
+    // Activamos skeletons para feedback visual
+    this.cargando = true;
+
+    try {
+      // Llamamos al servicio pasando el texto para la búsqueda por ?q=
+      const resultados = await this.carreraService.getCarreras(this.textoBusqueda, this.campoOrden, this.direccionOrden);
+      console.log('Resultados encontrados: ', resultados);
+      this.listaDeCarreras = resultados;
+    } catch (error) {
+      console.error('Error al realizar la búsqueda:', error);
+      this.listaDeCarreras = [];
+    } finally {
+      this.cargando = false;
+    }
+  }
+
+  // Método para ordenar (se dispara desde el ion-select)
+  async cambiarOrden(event: any) {
+    const seleccion = event.detail.value;
+
+    // Mapeamos la selección a lo que entiende tu servicio
+    switch (seleccion) {
+      case 'recientes':
+        this.campoOrden = 'fecha';
+        this.direccionOrden = 'desc';
+        break;
+      case 'az':
+        this.campoOrden = 'titulo';
+        this.direccionOrden = 'asc';
+        break;
+      case 'za':
+        this.campoOrden = 'titulo';
+        this.direccionOrden = 'desc';
+        break;
+      default:
+        this.campoOrden = 'id';
+        this.direccionOrden = 'asc';
+    }
+
+    // Refrescamos la lista manteniendo el texto que haya en el buscador
+    this.listaDeCarreras = await this.carreraService.getCarreras(
+      this.textoBusqueda, 
+      this.campoOrden, 
+      this.direccionOrden
+    );
   }
 
   // Método para cargar los detalles de una carrera

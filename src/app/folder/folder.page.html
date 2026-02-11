@@ -71,6 +71,31 @@
 
       <!-- Contenido real -->
       <ion-row class="ion-justify-content-center equal-height-row">
+        <ion-grid *ngIf="!cargando && listaDeCarreras.length === 0" class="ion-text-center">
+          <p>No hay carreras que coincidan con "{{ textoBusqueda }}"</p>
+        </ion-grid>
+        <ion-row class="ion-align-items-center" style="width: 100%;">
+            <ion-col size="9">
+              <ion-searchbar 
+                placeholder="Buscar carrera..." 
+                [debounce]="500" 
+                (ionInput)="buscar($event)"
+                class="custom-searchbar">
+              </ion-searchbar>
+            </ion-col>
+
+            <ion-col size="3">
+              <ion-item lines="none" class="custom-select-item">
+                <ion-select value="defecto" (ionChange)="cambiarOrden($event)" interface="popover" placeholder="Orden">
+                  <ion-select-option value="defecto">Ordenar por</ion-select-option>
+                  <ion-select-option value="recientes">Recientes</ion-select-option>
+                  <ion-select-option value="az">A - Z</ion-select-option>
+                  <ion-select-option value="za">Z - A</ion-select-option>
+                </ion-select>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+
         <ng-container *ngFor="let carrera of listaDeCarreras; let i = index">
           <ion-col size="12" size-md="6">
             <ion-card color="primary" (click)="verDetalle(carrera.id)" style="cursor: pointer;">

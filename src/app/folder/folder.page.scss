@@ -31,3 +31,24 @@ ion-menu-button {
 ion-input.has-focus .label-text {
   color: var(--ion-color-secondary); 
 }
+
+/* Ajustes para la fila de filtros */
+.custom-searchbar {
+  color: var(--ion-color-primary)
+}
+
+.custom-select-item {
+  --padding-start: 10%;
+  --inner-padding-end: 0;
+  background: transparent;
+  margin-top: 4px;
+  border-radius: 10px;
+  color: var(--ion-color-primary);
+
+}
+
+/* Para que el texto del select no se corte en móviles muy pequeños */
+ion-select {
+  width: 80%;
+  font-size: 0.9em;
+}

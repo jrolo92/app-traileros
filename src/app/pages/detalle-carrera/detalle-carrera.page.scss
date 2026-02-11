@@ -98,10 +98,9 @@
 
   .poster-container {
     grid-area: poster;
-    min-height: 80vh;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
+    min-height: auto;
+    background-color: transparent;
+    display: block;
 
     img {
       width: 100%;

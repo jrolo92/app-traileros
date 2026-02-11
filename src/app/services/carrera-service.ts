@@ -22,13 +22,18 @@ export class CarreraService {
   /**
    *  Método para obtener todas las carreras (GET).
    */
-  async getCarreras(): Promise<Carrera[]> {
-    // Hacemos la petición GET a la URL.
-    // Usamos el genérico <Carrera[]> para decirle a TypeScript que esperamos un array de carreras.
-    // firstValueFrom convierte el Observable en una Promesa.
-    return firstValueFrom(
-      this.http.get<Carrera[]>(this._url)
-    );
+  async getCarreras(busqueda: string = '', campo: string = 'id', orden: string = 'asc'): Promise<Carrera[]> {
+
+    // Si hay texto, usamos _like para que sea una búsqueda parcial
+    // Ejemplo: http://localhost:3000/carreras?titulo_like=Vibora
+    let urlFinal = `${this._url}?q=${encodeURIComponent(busqueda)}`;
+
+    // Añadimos la ordenación
+    urlFinal += `&_sort=${campo}&_order=${orden}`;
+
+    console.log('URL generada:', urlFinal);
+    
+    return firstValueFrom(this.http.get<Carrera[]>(urlFinal));
   };
 
   /**

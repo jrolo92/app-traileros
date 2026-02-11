@@ -6,3 +6,5 @@
 
 Mejoras: Cambiar pagina de detalle carrera para que se vea en pantallas grandes la imagen a un lado y los datos en el otro como en dos columnas (y desaparezca la barra de scroll)
 		 en pantallas pequeñas si se ve bastante bien.
+
+11/02/26 --> Implementa mejora de búsqueda (funciona mejor con json-server 0.17.4).
