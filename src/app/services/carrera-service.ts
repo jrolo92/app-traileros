@@ -23,18 +23,27 @@ export class CarreraService {
    *  Método para obtener todas las carreras (GET).
    */
   async getCarreras(busqueda: string = '', campo: string = 'id', orden: string = 'asc'): Promise<Carrera[]> {
-
-    // Si hay texto, usamos _like para que sea una búsqueda parcial
-    // Ejemplo: http://localhost:3000/carreras?titulo_like=Vibora
-    let urlFinal = `${this._url}?q=${encodeURIComponent(busqueda)}`;
-
-    // Añadimos la ordenación
-    urlFinal += `&_sort=${campo}&_order=${orden}`;
-
-    console.log('URL generada:', urlFinal);
+    // En la beta.5, si mandas q='' (vacío), a veces el servidor busca un string vacío 
+    // y por eso te devuelve []. Solo hay que añadirlo si hay texto.
     
+    let urlFinal = this._url;
+    const params: string[] = [];
+
+    if (busqueda.trim() !== '') {
+      params.push(`q=${encodeURIComponent(busqueda)}`);
+    }
+
+    // Ojo: En la v1.x beta, la ordenación DESC se hace con un menos (-)
+    const sortValue = orden === 'desc' ? `-${campo}` : campo;
+    params.push(`_sort=${sortValue}`);
+
+    if (params.length > 0) {
+      urlFinal += `?${params.join('&')}`;
+    }
+
+    console.log('URL Final:', urlFinal);
     return firstValueFrom(this.http.get<Carrera[]>(urlFinal));
-  };
+  }
 
   /**
    *  Método para obtener una carrera por su ID (GET /carreras/ID).

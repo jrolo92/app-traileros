@@ -66,16 +66,19 @@ export class FolderPage implements OnInit, AfterViewInit {
     // Servicio / Controlador de indicador de carga
     private loadingController: LoadingController
   ) {
-    // Simulamos un tiempo de carga de datos de 1 segundos
-    setTimeout(() => {
-      this.cargarCarreras();
-      this.cargando = false;
-    }, 1000);
+    // // Simulamos un tiempo de carga de datos de 1 segundos
+    // setTimeout(() => {
+    //   this.cargarCarreras();
+    //   this.cargando = false;
+    // }, 1000);
   }
 
     // Se ejecuta cada vez que la página va a entrar en pantalla (antes de la animación)
   async ionViewWillEnter(){
-    await this.cargarCarreras();
+    // Solo cargamos si estamos en la sección de carreras
+    if (this.folder === 'carreras') {
+      await this.cargarCarreras();
+    }
   }
 
   // Método que ejecuta cuando la vista ya está lista (para animaciones)
@@ -134,6 +137,7 @@ export class FolderPage implements OnInit, AfterViewInit {
   // Aquí van a ir los métodos (fuera del ngOnInit)
   // Método para cargar el array de carreras (con mensaje de loading)
   async cargarCarreras() {
+    this.cargando = true; // Iniciamos skeleton
     // Creamos y mostramos el loading
     const loading = await this.loadingController.create({
       message: 'Cargando carreras...',
@@ -143,13 +147,18 @@ export class FolderPage implements OnInit, AfterViewInit {
 
     // Debemos esperar a que lleguen los datos del servidor
     try {
-      this.listaDeCarreras = await this.carreraService.getCarreras();
+      this.listaDeCarreras = await this.carreraService.getCarreras(
+        this.textoBusqueda, 
+        this.campoOrden, 
+        this.direccionOrden
+      );
 
     } catch (error){
       console.error('Error al cargar las carreras:', error);
       this.mostrarError('No se pudieron cargar las tareas. Comprueba tu conexión.')
 
     } finally {
+      this.cargando = false; // Paramos skeleton
       // Cerramos el loading al terminar
       loading.dismiss();
     }
