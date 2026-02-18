@@ -10,3 +10,5 @@ Mejoras: Cambiar pagina de detalle carrera para que se vea en pantallas grandes 
 11/02/26 --> Implementa mejora de búsqueda (funciona mejor con json-server 0.17.4).
 			 Implementa mejora de ordenación.
 			 Mejora en estilos de detalleCarrera y de folder/carreras (para mostrar barra de búsqueda y select de ordenación)
+
+19/02/26 --> Arregla mejora de búsqueda para que funcione sin usar url de busqueda en Json Server, ya que fallaba en la version 1.0

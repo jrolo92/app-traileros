@@ -23,26 +23,28 @@ export class CarreraService {
    *  Método para obtener todas las carreras (GET).
    */
   async getCarreras(busqueda: string = '', campo: string = 'id', orden: string = 'asc'): Promise<Carrera[]> {
-    // En la beta.5, si mandas q='' (vacío), a veces el servidor busca un string vacío 
-    // y por eso te devuelve []. Solo hay que añadirlo si hay texto.
-    
-    let urlFinal = this._url;
-    const params: string[] = [];
+    // 1. Pedimos todas las carreras sin filtros de URL para evitar errores del server
+    const todas = await firstValueFrom(this.http.get<Carrera[]>(this._url));
 
+    let resultados = [...todas];
+
+    // 2. Filtramos nosotros (Insensible a mayúsculas/minúsculas)
     if (busqueda.trim() !== '') {
-      params.push(`q=${encodeURIComponent(busqueda)}`);
+      const term = busqueda.toLowerCase();
+      resultados = resultados.filter(c => 
+        c.titulo.toLowerCase().includes(term) || 
+        c.descripcion.toLowerCase().includes(term)
+      );
     }
 
-    // Ojo: En la v1.x beta, la ordenación DESC se hace con un menos (-)
-    const sortValue = orden === 'desc' ? `-${campo}` : campo;
-    params.push(`_sort=${sortValue}`);
+    // 3. Ordenamos nosotros
+    resultados.sort((a: any, b: any) => {
+      if (a[campo] < b[campo]) return orden === 'asc' ? -1 : 1;
+      if (a[campo] > b[campo]) return orden === 'asc' ? 1 : -1;
+      return 0;
+    });
 
-    if (params.length > 0) {
-      urlFinal += `?${params.join('&')}`;
-    }
-
-    console.log('URL Final:', urlFinal);
-    return firstValueFrom(this.http.get<Carrera[]>(urlFinal));
+    return resultados;
   }
 
   /**
