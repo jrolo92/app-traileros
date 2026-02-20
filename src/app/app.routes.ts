@@ -6,11 +6,16 @@ export const routes: Routes = [
     redirectTo: 'folder/inicio',
     pathMatch: 'full',
   },
+  {
+    path: 'inicio',
+    loadComponent: () => import('./pages/inicio/inicio.page').then( m => m.InicioPage)
+  },
     // Ruta para mostrar detalles de carreras
   {
     path: 'folder/carreras/:carreraId', 
     loadComponent: () => import('./pages/detalle-carrera/detalle-carrera.page').then( m => m.DetalleCarreraPage)
   },
+
   // Ruta para mostrar la pagina de ajustes
   {
     path: 'folder/ajustes',
@@ -20,4 +25,5 @@ export const routes: Routes = [
     path: 'folder/:id',
     loadComponent: () => import('./folder/folder.page').then((m) => m.FolderPage),
   },
+
 ];

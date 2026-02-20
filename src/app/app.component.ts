@@ -12,7 +12,7 @@ import {
   IonIcon,
   IonLabel,
   IonRouterOutlet,
-  IonRouterLink, IonImg, IonThumbnail } from '@ionic/angular/standalone';
+  IonRouterLink, IonImg, IonThumbnail, IonAvatar, IonFooter, IonButton, IonCardContent } from '@ionic/angular/standalone';
 
 import { addIcons } from 'ionicons';
 import {
@@ -24,7 +24,9 @@ import {
   mapOutline, mapSharp,
   peopleOutline, peopleSharp,
   cubeOutline, cubeSharp,
-  bookmarkOutline, bookmarkSharp
+  bookmarkOutline, bookmarkSharp,
+  chevronForwardOutline,
+  settingsOutline, settingsSharp,
 } from 'ionicons/icons';
 import { SettingsService } from './services/settings.service';
 
@@ -32,7 +34,7 @@ import { SettingsService } from './services/settings.service';
   selector: 'app-root',
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss'],
-  imports: [IonImg, 
+  imports: [IonCardContent, IonButton, IonFooter, IonAvatar, IonImg, 
     RouterLink, RouterLinkActive,
     IonApp, IonSplitPane, IonMenu, IonContent,
     IonList, IonListHeader, IonMenuToggle,
@@ -45,19 +47,12 @@ export class AppComponent {
     { title: 'Carreras', url: '/folder/carreras', icon: 'walk' },
     { title: 'Inscripciones', url: '/folder/inscripciones', icon: 'pencil' },
     { title: 'Resultados', url: '/folder/resultados', icon: 'flag' },
-    { title: 'Rutas', url: '/folder/rutas', icon: 'map' },
-    { title: 'Comunidad', url: '/folder/comunidad', icon: 'people' },
     { title: 'About', url: '/folder/about', icon: 'information-circle' },
     { title: 'Ajustes', url: '/folder/ajustes', icon: 'settings'}
   ];
 
   public labels = [
-    'Favoritas',
-    'Pendientes',
-    'Completadas',
-    'Mi equipo',
-    'Amigos',
-    'Recordatorios'
+    'Favoritas'
   ];
 
   constructor(private settings: SettingsService) {
@@ -70,7 +65,10 @@ export class AppComponent {
       mapOutline, mapSharp,
       peopleOutline, peopleSharp,
       cubeOutline, cubeSharp,
-      bookmarkOutline, bookmarkSharp
+      bookmarkOutline, bookmarkSharp,
+      chevronForwardOutline,
+      settingsOutline,
+      settingsSharp,
       
     });
     this.settings.modoOscuro$.subscribe(isDark => { document.body.classList.toggle('dark', isDark); });

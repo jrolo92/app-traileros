@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IonList, IonListHeader, IonItem, IonLabel, IonToggle, IonInput } from '@ionic/angular/standalone';
 import { SettingsService } from '../../services/settings.service';
+import { FooterComponent } from 'src/app/components/footer/footer.component';
 
 
 @Component({
@@ -10,7 +11,7 @@ import { SettingsService } from '../../services/settings.service';
   templateUrl: './ajustes.page.html',
   styleUrls: ['./ajustes.page.scss'],
   standalone: true,
-  imports: [ CommonModule, FormsModule, ReactiveFormsModule, IonList, IonListHeader, IonItem, IonLabel, IonToggle, IonInput ]
+  imports: [ CommonModule, FormsModule, ReactiveFormsModule, IonList, IonListHeader, IonItem, IonLabel, IonToggle, IonInput, FooterComponent ]
 })
 export class AjustesPage implements OnInit {
   // Por defecto estará apagado el modo oscuro

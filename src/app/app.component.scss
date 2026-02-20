@@ -1,120 +1,149 @@
+/* Fondo general con un degradado sutil opcional */
 ion-menu ion-content {
-  --background: var(--ion-item-background, var(--ion-background-color, #fff));
+  --background: var(--ion-background-color);
 }
 
-ion-menu.md ion-content {
-  --padding-start: 8px;
-  --padding-end: 8px;
-  --padding-top: 20px;
-  --padding-bottom: 20px;
-}
-
-ion-menu.md ion-list {
-  padding: 20px 0;
-}
-
-ion-menu.md ion-note {
-  margin-bottom: 30px;
-}
-
-ion-menu.md ion-list-header,
-ion-menu.md ion-note {
-  padding-left: 10px;
-}
-
-ion-menu.md ion-list#inbox-list {
-  border-bottom: 1px solid var(--ion-background-color-step-150, #d7d8da);
-}
-
-ion-menu.md ion-list#inbox-list ion-list-header {
-  font-size: 22px;
-  font-weight: 600;
-
-  min-height: 20px;
-}
-
-ion-menu.md ion-list#labels-list ion-list-header {
-  font-size: 16px;
-
-  margin-bottom: 18px;
-
-  color: #757575;
-
-  min-height: 26px;
-}
-
-ion-menu.md ion-item {
-  --padding-start: 10px;
-  --padding-end: 10px;
-  border-radius: 4px;
-}
-
-ion-menu.md ion-item.selected {
-  --background: rgba(var(--ion-color-primary-rgb), 0.14);
-}
-
-ion-menu.md ion-item.selected ion-icon {
-  color: var(--ion-color-primary);
-}
-
-ion-menu.md ion-item ion-icon {
-  color: #616e7e;
-}
-
-ion-menu.md ion-item ion-label {
-  font-weight: 500;
-}
-
-ion-menu.ios ion-content {
-  --padding-bottom: 20px;
-}
-
-ion-menu.ios ion-list {
-  padding: 20px 0 0 0;
-}
-
-ion-menu.ios ion-note {
-  line-height: 24px;
-  margin-bottom: 20px;
-}
-
-ion-menu.ios ion-item {
-  --padding-start: 16px;
-  --padding-end: 16px;
-  --min-height: 50px;
-}
-
-ion-menu.ios ion-item.selected ion-icon {
-  color: var(--ion-color-primary);
-}
-
-ion-menu.ios ion-item ion-icon {
+/* Encabezado del Menú (Título de la App) */
+ion-menu.md ion-list#inbox-list ion-list-header,
+ion-menu.ios ion-list#inbox-list ion-list-header {
   font-size: 24px;
-  color: #73849a;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  color: var(--ion-color-primary);
+  margin-bottom: 5px;
+  padding-top: 10px;
 }
 
-ion-menu.ios ion-list#labels-list ion-list-header {
-  margin-bottom: 8px;
-}
-
-ion-menu.ios ion-list-header,
-ion-menu.ios ion-note {
-  padding-left: 16px;
-  padding-right: 16px;
-}
-
-ion-menu.ios ion-note {
-  margin-bottom: 8px;
-}
-
+/* Nota de usuario/email debajo del título */
 ion-note {
   display: inline-block;
-  font-size: 16px;
-
-  color: var(--ion-color-medium-shade);
+  font-size: 14px;
+  padding-left: 10px;
+  margin-bottom: 25px;
+  color: var(--ion-color-medium);
+  opacity: 0.8;
 }
 
+/* Estilo de los Items (Botones del menú) */
+ion-item {
+  --border-radius: 12px !important; // Bordes mucho más redondeados (moderno)
+  --margin-top: 4px;
+  --margin-bottom: 4px;
+  --transition: 0.3s ease-in-out;
+  margin: 6px 12px; // Les damos aire para que no toquen los bordes del menú
+  font-size: 15px;
+}
+
+/* Item seleccionado: Efecto cristal/glassmorphism */
 ion-item.selected {
+  --background: rgba(var(--ion-color-primary-rgb), 0.1);
   --color: var(--ion-color-primary);
+  font-weight: 700;
+  
+  ion-icon {
+    color: var(--ion-color-primary);
+    transform: scale(1.1); // El icono crece un poquito al estar seleccionado
+  }
 }
 
+/* Iconos */
+ion-item ion-icon {
+  transition: 0.2s ease-in-out;
+  color: #616e7e;
+  margin-inline-end: 18px; // Más espacio entre icono y texto
+}
+
+/* Separador de secciones (Labels) */
+ion-list#labels-list ion-list-header {
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-top: 25px;
+  color: var(--ion-color-step-600);
+  padding-left: 20px;
+}
+
+/* Efecto Hover (para cuando uses la app en web o tablet) */
+ion-item:hover:not(.selected) {
+  --background: rgba(var(--ion-color-step-150), 0.3);
+}
+
+/* Quitar la línea divisoria fea de Android para un look más limpio */
+ion-list#inbox-list {
+  border-bottom: none !important;
+}
+
+/* Contenedor que obliga a separar el contenido */
+.menu-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%; // Ocupa todo el alto del menú
+  justify-content: space-between; // Empuja el contenido de abajo al final
+}
+
+.menu-top-content {
+  flex-grow: 1; // Permite que la lista superior respire
+}
+
+/* Estilo de la Tarjeta Grande */
+.profile-card {
+  margin: 20px 15px 100px;
+  background: var(--ion-color-primary);
+  border-radius: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(var(--ion-color-primary-rgb), 0.1);
+
+  ion-card-content {
+    padding: 16px;
+  }
+}
+
+.profile-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+
+  ion-avatar {
+    width: 50px;
+    height: 50px;
+    margin-right: 12px;
+    border: 2px solid var(--ion-color-primary);
+  }
+
+  h2 {
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: 700;
+  }
+
+  p {
+    margin: 0;
+    font-size: 0.85rem;
+    color: var(--ion-color-primary);
+    font-weight: 600;
+  }
+}
+
+/* Estadísticas rápidas dentro de la tarjeta */
+.profile-stats {
+  display: flex;
+  justify-content: space-around;
+  background: var(--ion-background-color);
+  padding: 10px;
+  border-radius: 12px;
+  margin-bottom: 10px;
+
+  .stat {
+    text-align: center;
+    .value {
+      display: block;
+      font-weight: 800;
+      font-size: 1rem;
+    }
+    .label {
+      font-size: 0.7rem;
+      color: var(--ion-color-medium);
+      text-transform: uppercase;
+    }
+  }
+}

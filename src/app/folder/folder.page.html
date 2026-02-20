@@ -17,10 +17,7 @@
 
   <!-- Lo que se muestra en la pagina inicio  -->
   <ng-container *ngIf="folder === 'inicio'">
-    <div class="ion-padding"> 
-      <h2 *ngIf="nombreUsuario">Hola, {{ nombreUsuario }}</h2> 
-      <h2 *ngIf="!nombreUsuario">Hola, Invitado</h2> 
-    </div>
+    <app-inicio></app-inicio>
   </ng-container>
 
   <!-- Lo que se mmuestra en la página carreras -->
@@ -136,7 +133,9 @@
 <!-- AJUSTES -->
 <ng-container *ngIf="folder === 'ajustes'">
   <!-- <app-ajustes></app-ajustes> -->
+   <app-footer></app-footer>
 </ng-container>
+
 
 
 </ion-content> 

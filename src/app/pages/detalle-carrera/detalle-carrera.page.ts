@@ -20,6 +20,8 @@ import { locationOutline, calendarOutline, speedometerOutline, prismOutline } fr
 
 import { Router } from '@angular/router';
 
+import { FooterComponent } from 'src/app/components/footer/footer.component';
+
 @Component({
   selector: 'app-detalle-carrera',
   templateUrl: './detalle-carrera.page.html',
@@ -27,8 +29,8 @@ import { Router } from '@angular/router';
   standalone: true,
   imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, 
             IonButtons, IonBackButton, IonBadge, IonCard, IonCardHeader, IonCardSubtitle,
-            IonIcon, IonCardTitle, IonCardContent, IonChip, IonLabel, IonButton, IonSpinner
-            ]
+            IonIcon, IonCardTitle, IonCardContent, IonChip, IonLabel, IonButton, IonSpinner,
+            FooterComponent]
 })
 export class DetalleCarreraPage implements OnInit {
   // esto que es???

@@ -12,6 +12,7 @@ import { CarreraService } from '../services/carrera-service';
 import { AnimationController, Animation, IonSearchbar } from '@ionic/angular/standalone';
 import { SettingsService } from '../services/settings.service';
 import { SearchbarCustomEvent } from '@ionic/angular';
+import { InicioPage } from '../pages/inicio/inicio.page';
 
 @Component({
   selector: 'app-folder',
@@ -22,7 +23,7 @@ import { SearchbarCustomEvent } from '@ionic/angular';
     IonCardSubtitle, IonSkeletonText, IonLabel, IonItem, IonList,
     IonCardContent, IonCardTitle, IonCardHeader, IonCard, IonHeader, IonToolbar, IonButtons,
     IonMenuButton, IonTitle, IonContent, CarreraComponent, CommonModule, FooterComponent,
-    IonGrid, IonRow, IonCol, IonButton, IonSearchbar, IonSelect, IonSelectOption
+    IonGrid, IonRow, IonCol, IonButton, IonSearchbar, IonSelect, IonSelectOption, InicioPage
   ],
 })
 
