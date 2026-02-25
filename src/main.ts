@@ -23,6 +23,9 @@ import { AppComponent } from './app/app.component';
 import { addIcons } from 'ionicons';
 import { informationCircle, informationCircleOutline, informationCircleSharp, settings, settingsOutline, settingsSharp } from 'ionicons/icons';
 
+// 1. Importar el definidor de elementos
+import { defineCustomElements } from '@ionic/pwa-elements/loader';
+
 addIcons({
   'information-circle': informationCircle,
   'information-circle-outline': informationCircleOutline,
@@ -52,3 +55,6 @@ bootstrapApplication(AppComponent, {
     ),
   ]
 });
+
+// 2. Llamar a la función al final del archivo
+defineCustomElements(window);
