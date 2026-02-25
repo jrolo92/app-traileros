@@ -13,4 +13,4 @@ Mejoras: Cambiar pagina de detalle carrera para que se vea en pantallas grandes 
 
 19/02/26 --> Arregla mejora de búsqueda para que funcione sin usar url de busqueda en Json Server, ya que fallaba en la version 1.0
 25/06/26 --> Comienzo ud6. Documnetación en drive. 
-			Me he quedao por el paso 3 del apartado 6.1: he ejecutado el comando ionic g service services/photo (sin documentar apartado 6.1).
+			Me he quedao por el paso 4 del apartado 6.1 (sin documentar apartado 6.1).

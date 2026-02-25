@@ -66,6 +66,7 @@ export class FolderPage implements OnInit, AfterViewInit {
     private router: Router,
     // Servicio / Controlador de indicador de carga
     private loadingController: LoadingController
+    
   ) {
     // // Simulamos un tiempo de carga de datos de 1 segundos
     // setTimeout(() => {
