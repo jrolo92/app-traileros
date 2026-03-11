@@ -1,0 +1,64 @@
+<ion-list>
+  <ion-list-header>Apariencia</ion-list-header>
+
+  <ion-item>
+    <ion-label>Modo Oscuro</ion-label>
+    <ion-toggle [(ngModel)]="modoOscuro" (ionChange)="cambiarModoOscuro()"></ion-toggle>
+  </ion-item>
+
+  <ion-list-header>Perfil</ion-list-header> 
+
+  <ion-item lines="full">
+    <ion-label position="stacked">Foto de perfil</ion-label>
+    
+    <div class="ion-padding-top ion-padding-bottom">
+      <ion-avatar *ngIf="photoService.foto" (click)="addPhoto()" style="width: 100px; height: 100px; margin: 10px 0; cursor: pointer;">
+        <img [src]="photoService.foto" alt="Perfil" />
+      </ion-avatar>
+
+      <ion-button *ngIf="!photoService.foto" (click)="addPhoto()" color="primary" fill="outline" style="height: 60px; width: 100%; max-width: 200px;">
+        <ion-icon slot="start" name="camera" style="font-size: 24px;"></ion-icon>
+        Tomar Foto
+      </ion-button>
+    </div>
+  </ion-item>
+
+  <ion-item> 
+    <ion-label position="stacked">Tu nombre</ion-label> 
+    <ion-input [(ngModel)]="nombreUsuario" (ionBlur)="guardarNombre()" placeholder="Escribe tu nombre"></ion-input> 
+  </ion-item> 
+
+  <ion-list-header>Ubicación del Trailer@</ion-list-header>
+
+  <ion-item lines="full">
+    <ion-label position="stacked">Coordenadas Actuales</ion-label>
+    
+    <div class="ion-padding-top ion-padding-bottom">
+      <p *ngIf="!locationService.latitud" style="color: gray; margin-bottom: 10px;">
+        Haz clic en el botón para obtener tu ubicación GPS.
+      </p>
+
+      <div *ngIf="locationService.latitud" style="margin-bottom: 10px;">
+        <ion-badge color="tertiary">Lat: {{ locationService.latitud.toFixed(5) }}</ion-badge>
+        <ion-badge color="tertiary" style="margin-left: 5px;">Long: {{ locationService.longitud?.toFixed(5) }}</ion-badge>
+        
+        <br>
+        <ion-button 
+          fill="clear" 
+          size="small" 
+          [href]="'https://www.google.com/maps?q=' + locationService.latitud + ',' + locationService.longitud" 
+          target="_blank">
+          <ion-icon name="map-outline" slot="start"></ion-icon>
+          Ver en Google Maps
+        </ion-button>
+      </div>
+
+      <ion-button (click)="obtenerGPS()" color="secondary" fill="outline" style="height: 50px; width: 100%; max-width: 200px;">
+        <ion-icon slot="start" name="locate-outline"></ion-icon>
+        {{ locationService.latitud ? 'Actualizar GPS' : 'Obtener GPS' }}
+      </ion-button>
+    </div>
+  </ion-item>
+</ion-list>
+
+<app-footer></app-footer>

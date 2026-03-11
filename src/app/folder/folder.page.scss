@@ -1,0 +1,54 @@
+ion-menu-button {
+  color: var(--ion-color-primary);
+}
+
+#container {
+  text-align: center;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+#container strong {
+  font-size: 20px;
+  line-height: 26px;
+}
+
+#container p {
+  font-size: 16px;
+  line-height: 22px;
+  color: #8c8c8c;
+  margin: 0;
+}
+
+#container a {
+  text-decoration: none;
+}
+
+/* Cambia el color de la etiqueta flotante cuando el input está enfocado */
+ion-input.has-focus .label-text {
+  color: var(--ion-color-secondary); 
+}
+
+/* Ajustes para la fila de filtros */
+.custom-searchbar {
+  color: var(--ion-color-primary)
+}
+
+.custom-select-item {
+  --padding-start: 10%;
+  --inner-padding-end: 0;
+  background: transparent;
+  margin-top: 4px;
+  border-radius: 10px;
+  color: var(--ion-color-primary);
+
+}
+
+/* Para que el texto del select no se corte en móviles muy pequeños */
+ion-select {
+  width: 80%;
+  font-size: 0.9em;
+}

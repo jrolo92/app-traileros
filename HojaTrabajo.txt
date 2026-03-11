@@ -1,0 +1,16 @@
+21/01/26 --> Optimización de la configuración del modo oscuro (usando Storage).
+	     Faltan las mejoras del tema 4.
+23/01/26 --> Solo algunas mejoras tema 4. Comienzo tema 5.
+28/01/26 --> Realizo puntos 1, 2, 3, 4 y 5 del tema 5. Consigue guardar carreras en server/API
+29/01/26 --> Realizo punto 6 (tema 5): pagina de detalles con carrera y modificación de detalles mediante el formulario modal.
+
+Mejoras: Cambiar pagina de detalle carrera para que se vea en pantallas grandes la imagen a un lado y los datos en el otro como en dos columnas (y desaparezca la barra de scroll)
+		 en pantallas pequeñas si se ve bastante bien.
+
+11/02/26 --> Implementa mejora de búsqueda (funciona mejor con json-server 0.17.4).
+			 Implementa mejora de ordenación.
+			 Mejora en estilos de detalleCarrera y de folder/carreras (para mostrar barra de búsqueda y select de ordenación)
+
+19/02/26 --> Arregla mejora de búsqueda para que funcione sin usar url de busqueda en Json Server, ya que fallaba en la version 1.0
+25/06/26 --> Comienzo ud6. Documnetación en drive. 
+04/03/26 --> Comienza apartado 6.2 Geolocalización
