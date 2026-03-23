@@ -15,6 +15,7 @@ import { SearchbarCustomEvent } from '@ionic/angular';
 import { InicioPage } from '../pages/inicio/inicio.page';
 
 
+
 @Component({
   selector: 'app-folder',
   templateUrl: './folder.page.html',
@@ -225,7 +226,7 @@ export class FolderPage implements OnInit, AfterViewInit {
 
   /**
    *  Método para implementar la actualización de una carrera
-   */
+  */
   async actualizarCarrera(carrera: Carrera) {
     try {
       // Enviamos el objeto completo con todos los cambios modificados
