@@ -57,6 +57,10 @@ export class AjustesPage implements OnInit {
   // Metodo para hacer fotos
   addPhoto() {
     this.photoService.addNewToGallery();
+    // Avisamos al SettingsService para que le llegue la foto al menú
+    if (this.photoService.foto) {
+      this.settingsService.actualizarImagen(this.photoService.foto);
+    }
   }
 
   // Método para la geolocalización

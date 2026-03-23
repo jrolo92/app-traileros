@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   // vv global con la url del server JSON
-  apiUrl: 'http://localhost:3000'
+  apiUrl: 'http://192.168.0.16:3000'
 };
 
 /*

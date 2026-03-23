@@ -14,4 +14,5 @@ Mejoras: Cambiar pagina de detalle carrera para que se vea en pantallas grandes 
 19/02/26 --> Arregla mejora de búsqueda para que funcione sin usar url de busqueda en Json Server, ya que fallaba en la version 1.0
 25/06/26 --> Comienzo ud6. Documentación en drive. 
 04/03/26 --> Comienza apartado 6.2 Geolocalización.
-23/03/26 --> Completa apartado 6.2 (geolocalización en la pagina de ajustes). Continúa con la documentación
+23/03/26 --> Completa apartado 6.2 (geolocalización en la pagina de ajustes). Despliegue en móvil y finalización de documentación de drive (con capturas y video).
+			 Falta: realizar mejoras.

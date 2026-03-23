@@ -40,7 +40,7 @@
           <ion-card-content>
             <div class="profile-header">
               <ion-avatar>
-                <img src="photoService.foto ? photoService.foto : 'https://ionicframework.com/docs/img/demos/avatar.svg'" />
+                <img [src]="imagen" />
               </ion-avatar>
               <div class="profile-info">
                 <h2>{{ nombreEnMenu }}</h2>

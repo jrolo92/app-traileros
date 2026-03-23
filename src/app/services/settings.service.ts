@@ -17,6 +17,10 @@ export class SettingsService {
   private nombreSubject = new BehaviorSubject<string>(localStorage.getItem('nombreUsuario') || 'Usuario Trail');
   nombreUsuario$ = this.nombreSubject.asObservable();
 
+  // Creamos el canal para la foto de perfil
+  private imagenSubject = new BehaviorSubject<string>(localStorage.getItem('imagenPerfil') || 'assets/default-avatar.png');
+  imagenPerfil$ = this.imagenSubject.asObservable();
+
   actualizarNombre(nuevoNombre: string) {
     localStorage.setItem('nombreUsuario', nuevoNombre);
     this.nombreSubject.next(nuevoNombre); // Emitimos el nuevo valor
@@ -93,6 +97,12 @@ export class SettingsService {
   async cargarNombre() {
     const nombre = localStorage.getItem('nombre_usuario') || 'Usuario Trail';
     this.nombreSubject.next(nombre);
+  }
+
+  // Método para actualizar la foto de perfil
+  actualizarImagen(nuevaImagen: string) {
+    localStorage.setItem('imagenPerfil', nuevaImagen);
+    this.imagenSubject.next(nuevaImagen); 
   }
 
 }

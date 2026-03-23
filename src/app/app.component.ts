@@ -48,6 +48,7 @@ import { SettingsService } from './services/settings.service';
 export class AppComponent {
 
   nombreEnMenu: string = 'Usuario Trail';
+  imagen: string = '';
 
   public appPages = [
     { title: 'Inicio', url: '/folder/inicio', icon: 'home' },
@@ -86,6 +87,10 @@ export class AppComponent {
     // Escuchamos siempre el nombre
     this.settings.nombreUsuario$.subscribe(nuevoNombre => {
       this.nombreEnMenu = nuevoNombre;
+    });
+    // Y escuchamos también los cambios de la foto d perfil
+    this.settings.imagenPerfil$.subscribe(res => {
+      this.imagen = res;
     });
   }
 
