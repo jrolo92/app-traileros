@@ -6,6 +6,7 @@ import { SettingsService } from '../../services/settings.service';
 import { FooterComponent } from 'src/app/components/footer/footer.component';
 import { PhotoService } from 'src/app/services/photo.service';
 import { LocationService } from 'src/app/services/location.service';
+import { HapticsService } from 'src/app/services/haptics.service';
 
 
 @Component({
@@ -26,7 +27,9 @@ export class AjustesPage implements OnInit {
     // Servicio de fotos
     public photoService: PhotoService,
     // servicio de geolocalización
-    public locationService: LocationService
+    public locationService: LocationService,
+    // Servicio de vibración
+    public haptics: HapticsService,
   ) { }
 
   // Añadimos async a este método para poder usar await dentro
@@ -55,18 +58,24 @@ export class AjustesPage implements OnInit {
   }
 
   // Metodo para hacer fotos
-  addPhoto() {
+  async addPhoto() {
+    await this.haptics.impactoSuave();
     this.photoService.addNewToGallery();
     // Avisamos al SettingsService para que le llegue la foto al menú
     if (this.photoService.foto) {
       this.settingsService.actualizarImagen(this.photoService.foto);
+      // Si se guarda la foto bien hacemos vibración también
+      await this.haptics.exito();
     }
   }
 
   // Método para la geolocalización
   async obtenerGPS() {
+    await this.haptics.impactoSuave();
     try {
       await this.locationService.obtenerPosicionActual();
+      // Si s eobtienen las coordenadas vibra también
+      await this.haptics.exito();
     } catch (error) {
       console.log("El usuario denegó el permiso o el GPS está apagado");
     }

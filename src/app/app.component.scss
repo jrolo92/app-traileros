@@ -147,3 +147,15 @@ ion-list#inbox-list {
     }
   }
 }
+
+// Botón de compartir
+.share-item {
+  background: var(--ion-background-color);
+  margin-top: 20px;
+  border-radius: 10px;
+  margin-inline: 10px;
+
+  &:hover{
+    cursor: pointer;
+  }
+}

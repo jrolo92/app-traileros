@@ -33,6 +33,8 @@ import {
 
 import { PhotoService } from './services/photo.service';
 import { SettingsService } from './services/settings.service';
+import { HapticsService } from './services/haptics.service';
+import { ShareService } from './services/share.service';
 
 @Component({
   selector: 'app-root',
@@ -65,7 +67,9 @@ export class AppComponent {
 
   constructor(
     private settings: SettingsService,
-    public photoService: PhotoService
+    public photoService: PhotoService,
+    private haptics: HapticsService,
+    private shareService: ShareService,
     ) {
     addIcons({
       homeOutline, homeSharp,
@@ -99,5 +103,14 @@ export class AppComponent {
     return localStorage.getItem('nombreUsuario') || 'Usuario Trail';
   }
 
-  
+  // Metodo para que haya vibración al desplegar el menú lateral (usamos el suave)
+  async vibrarApertura() {
+    await this.haptics.impactoSuave();
+  }
+
+  // Método para el botón de compartir
+  compartir() {
+    this.shareService.compartirApp();
+  }
+
 }
