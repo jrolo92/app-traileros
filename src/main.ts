@@ -23,8 +23,14 @@ import { AppComponent } from './app/app.component';
 import { addIcons } from 'ionicons';
 import { informationCircle, informationCircleOutline, informationCircleSharp, settings, settingsOutline, settingsSharp } from 'ionicons/icons';
 
-// 1. Importar el definidor de elementos
+// Importar el definidor de elementos
 import { defineCustomElements } from '@ionic/pwa-elements/loader';
+
+import { environment } from './environments/environment';
+
+if (environment.production){
+  console.log = () => {};
+}
 
 addIcons({
   'information-circle': informationCircle,

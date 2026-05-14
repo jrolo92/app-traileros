@@ -1,0 +1,17 @@
+Nombre de la App --> Traileros: Carreras y Rutas de Montaña
+
+Descripción Breve --> Encuentra las mejores carreras de trail running y gestiona tus inscripciones.
+
+Descripción Completa --> ¿Te apasiona la montaña? Con Traileros tendrás el control total de tu temporada de trail running en la palma de tu mano. Funcionalidades principales:
+
+· Calendario Completo: Explora las próximas carreras de montaña por zona y dificultad.
+
+· Gestión de Inscripciones: No pierdas ni un dorsal; guarda tus registros y fechas clave.
+
+· Perfil de Corredor: Personaliza tu experiencia y mantén tus fotos de perfil actualizadas.
+
+· Resultados en Vivo: Consulta cómo quedaste en tus últimas competiciones.
+
+Únete a la comunidad de corredores que no le temen al barro. ¡Nos vemos en la cima!
+
+Política de Privacidad --> https://docs.google.com/document/d/1kG5HMue3J26VTpb_9HFm6YaWPPiYI91BFBrGnw-pOFQ/edit?usp=sharing

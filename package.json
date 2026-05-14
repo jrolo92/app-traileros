@@ -28,6 +28,7 @@
     "@capacitor/geolocation": "^8.1.0",
     "@capacitor/haptics": "^8.0.2",
     "@capacitor/share": "^8.0.1",
+    "@capacitor/splash-screen": "^8.0.1",
     "@ionic/angular": "^8.0.0",
     "@ionic/pwa-elements": "^3.4.0",
     "@ionic/storage": "^4.0.0",

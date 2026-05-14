@@ -36,6 +36,9 @@ import { SettingsService } from './services/settings.service';
 import { HapticsService } from './services/haptics.service';
 import { ShareService } from './services/share.service';
 
+import { Platform } from '@ionic/angular/standalone';
+import { SplashScreen } from '@capacitor/splash-screen';
+
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -70,6 +73,7 @@ export class AppComponent {
     public photoService: PhotoService,
     private haptics: HapticsService,
     private shareService: ShareService,
+    private platform: Platform,
     ) {
     addIcons({
       homeOutline, homeSharp,
@@ -96,6 +100,8 @@ export class AppComponent {
     this.settings.imagenPerfil$.subscribe(res => {
       this.imagen = res;
     });
+    // Llamamos a la función para quitar el Splash
+    this.ocultarSplash();
   }
 
   // Creamos un "getter" para obtener el nombre guardado en LocalStorage
@@ -111,6 +117,18 @@ export class AppComponent {
   // Método para el botón de compartir
   compartir() {
     this.shareService.compartirApp();
+  }
+
+  // Método para quitar el splash cuando la app esté cargada
+  async ocultarSplash() {
+    // Esperamos a que el dispositivo esté listo
+    await this.platform.ready();
+    
+    // Le ponemos un pequeño delay porque carga demasiado rápido y no se ve
+    await new Promise(resolve => setTimeout(resolve, 500));
+
+    // Ocultamos la imagen
+    await SplashScreen.hide();
   }
 
 }

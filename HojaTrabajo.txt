@@ -17,3 +17,5 @@ Mejoras: Cambiar pagina de detalle carrera para que se vea en pantallas grandes 
 23/03/26 --> Completa apartado 6.2 (geolocalización en la pagina de ajustes). Despliegue en móvil y finalización de documentación de drive (con capturas y video).
 			
 07/05/26 --> Añade plugin de Haptics (Vibración Táctica) y de Share. Completado tema 6.
+
+13/05/26 --> Añade imágenes (logo y splash). Añade identificador de paquete (appId: com.traileros).
